@@ -1,10 +1,8 @@
-# Create Your Own Object Chasing Robot
+# Create Your Own Object Chasing Robot w/ TensorFlow, Raspberry Pi, and Intel Neural Compute Stick 2
 This project demonstrates how to create your own object chasing robot using machine learning, a Raspberry Pi, and Intel's Neural Compute Stick 2. This guide will hopefully jump start your own real-time object detecting robot.
 
 TODO: insert gif of robot in action
 
-TODO: add table of contents
-TODO: add links to ToC sections
 ## Table of Contents
 * [Project Overview](#project-overview)
 * [Hardware List](#hardware-list)
@@ -12,12 +10,12 @@ TODO: add links to ToC sections
   * [Optional Hardware](#optional-hardware)
 * [Train ML Model with TensorFlow](#train-object-detection-model-with-tensorflow)
 * [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
+  * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
 * [Deploy the Optimized Model](#deploy-the-optimized-model)
 * [Testing](#testing)
 * [Deploy the Robot](#deploy-the-robot)
 * [References and Acknowledgements](#references-and-acknowledgements)
 
-TODO: (Add guide overview)
 ## Project Overview
 This guide will teach you how to: 
 * train your own model in TensorFlow using a Transfer Learning technique to save time and money 
@@ -46,12 +44,16 @@ TODO: clean and add links
 
 ## Optimize Model for Intel Neural Compute Stick 2
 
+#### Install OpenVINO on Dev PC
+
 ## Deploy the Optimized Model
 
 ## Testing
 During the lifecycle of your robot project, it's a good idea to develop and maintain some sort of testing strategy. In this section, I will break down how to use the provided testing scripts and their purpose.
-#### Hardware Releated Tests
-#### Software Unit Tests
+#### Hardware Specific Tests
+###### Test the Motors
+###### Test the Servos
+#### Unit Tests
 #### Integration Tests
 
 ## Deploy the Robot
