@@ -23,3 +23,12 @@ This guide will teach you how to:
 * train your own model in TensorFlow using a Transfer Learning technique to save time and money 
 * optimize the resulting TensorFlow model to be utilized with Intel's Inference Engine
 * implement the 
+
+## Hardware List
+this section describes the hardware involved in the project
+### Required Hardware
+* Raspberry Pi 3 B+
+### Optional Hardware
+* Arduino Uno
+
+## Train ML Model with TensorFlow
