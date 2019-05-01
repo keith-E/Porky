@@ -12,6 +12,9 @@ TODO: insert gif of robot in action
 * [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
   * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
 * [Deploy the Optimized Model](#deploy-the-optimized-model)
+  * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
+  * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
+  * [Clone this Repository onto Raspberry Pi](#clone-this-repository-onto-raspberry-pi)
 * [Testing](#testing)
 * [Deploy the Robot](#deploy-the-robot)
 * [References and Acknowledgements](#references-and-acknowledgements)
@@ -26,8 +29,9 @@ This guide will teach you how to:
 this section describes the hardware involved in the project
 #### Required Hardware
 * **Raspberry Pi 3 B+**
+* **MicroSD Card for Raspberry Pi**
 * **Intel Neural Compute Stick 2 (NCS2)**
-* **USB Camera** This project uses the PS3 Eye Camera which can be found on eBay.
+* **USB Camera** This project uses the [PS3 Eye Camera](https://en.wikipedia.org/wiki/PlayStation_Eye) which can be found on eBay for about $6 USD each.
 * **Robot Chassis Kit w/ Motors** This project uses the [Lynxmotion 4WD1 Rover Kit](http://www.lynxmotion.com/c-111-a4wd1-no-electronics.aspx). You can purchase this kit directly from [RobotShop](https://www.robotshop.com) or find a used kit on eBay.
 * **Servos x2 w/ Mounting Hardware** This project uses the [Lynxmotion Pan and Tilt Kit](https://www.robotshop.com/en/lynxmotion-pan-and-tilt-kit-aluminium2.html).
 * **Mounting Hardware** Please refer to the [Optional Hardware](#optional-hardware) section for the list of mounting hardware this project uses.
@@ -48,6 +52,8 @@ TODO: clean and add links
 
 #### Install OpenVINO on Dev PC
 
+## Configure the Raspberry Pi Environment
+
 ## Deploy the Optimized Model
 
 ## Testing
@@ -55,8 +61,15 @@ During the lifecycle of your robot project, it's a good idea to develop and main
 #### Hardware Specific Tests
 ###### Test the Motors
 ###### Test the Servos
+
 #### Unit Tests
+###### Test the ML Model
+###### Test the Camera Process
+###### Test the Detection Process
+
 #### Integration Tests
+###### Test Detection with Pan and Tilt
+###### Test Detection with Pan and Follow
 
 ## Deploy the Robot
 
