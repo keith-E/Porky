@@ -10,12 +10,12 @@ TODO: add links to ToC sections
 * [Hardware List](#hardware-list)
   * [Required Hardware](#required-hardware)
   * [Optional Hardware](#optional-hardware)
-* [Train ML Model with TensorFlow](#train-ml-model-with-tensorflow)
-* 3.0: Optimize ML Model for Intel Neural Compute Stick 2
-* 4.0: Implement Optimzied ML Model with Python
-* 5.0: Testing the Implementation
-* 6.0: Release the Robot into the Wild!
-* 7.0: References and Acknowledgements
+* [Train ML Model with TensorFlow](#train-object-detection-model-with-tensorflow)
+* [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
+* [Implement Optimzied Model with the Raspberry Pi and Python](#implement-optimized-model-with-the-raspberry-pi-and-python)
+* [Testing the Implementation](#testing-the-implementation)
+* [Release the Robot into the Wild!](#release-the-robot-into-the-wild!)
+* [References and Acknowledgements](#references-and-acknowledgements)
 
 TODO: (Add guide overview)
 ## Project Overview
@@ -26,9 +26,19 @@ This guide will teach you how to:
 
 ## Hardware List
 this section describes the hardware involved in the project
-### Required Hardware
+#### Required Hardware
 * Raspberry Pi 3 B+
-### Optional Hardware
+#### Optional Hardware
 * Arduino Uno
 
-## Train ML Model with TensorFlow
+## Train Object Detection Model with TensorFlow
+
+## Optimize Model for Intel Neural Compute Stick 2
+
+## Implement Optimzied Model with the Raspberry Pi and Python
+
+## Testing the Implementation
+
+## Release the Robot into the Wild!
+
+## References and Acknowledgements
