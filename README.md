@@ -31,12 +31,14 @@ this section describes the hardware involved in the project
 * **Robot Chassis Kit w/ Motors** This project uses the [Lynxmotion 4WD1 Rover Kit](http://www.lynxmotion.com/c-111-a4wd1-no-electronics.aspx). You can purchase this kit directly from [RobotShop](https://www.robotshop.com) or find a used kit on eBay.
 * **Servos x2 w/ Mounting Hardware** This project uses the [Lynxmotion Pan and Tilt Kit](https://www.robotshop.com/en/lynxmotion-pan-and-tilt-kit-aluminium2.html).
 * **Mounting Hardware** Please refer to the [Optional Hardware](#optional-hardware) section for the list of mounting hardware this project uses.
+* **Power Delivery Devices (Batteries/AC Adapters)** Please refer to the [Optional Hardware](#optional-hardware) section for the list of power delivery devices this project uses.
 
 #### Optional Hardware
 TODO: clean and add links
+* **Development PC (Linux, Windows, MacOS)** Development for this project was performed on a Windows 10 platform.
 * **Arduino Uno3**
-* Electrical Tape
-* Small Rig mounting arm
+* **Electrical Tape**
+* Small Rig Mounting Arm
 * iFixit toolkit
 * Velcro Tape
 
