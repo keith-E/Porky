@@ -1,7 +1,7 @@
-# Porky - The Real-Time Object Detecting Autonomous Robot
+# Porky: The Real-Time Object Detecting Robot
 The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own Machine Learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
 
-TODO: insert gif of robot in action
+TODO: pictures and gif of robot in action
 
 ## Table of Contents
 * [Project Overview](#project-overview)
@@ -25,9 +25,10 @@ TODO: insert gif of robot in action
 
 ## Project Overview
 This guide will teach you how to: 
-* train your own model in TensorFlow using a Transfer Learning technique to save time and money 
-* optimize the resulting TensorFlow model to be utilized with Intel's Inference Engine
-* implement the 
+* Train your own model in TensorFlow using a Transfer Learning technique to save time and money 
+* Optimize the resulting TensorFlow model to be utilized with Intel's Inference Engine
+* Implement the optimized model into a Python script
+* Deploy the program with real-time performance and feedback loops
 
 ## Hardware List
 While some of the hardware in this section is described as 'Required' or 'Optional', this is only if you want to follow this guide step-by-step. This does not mean you are restricted to these components if you want to swap, subtract, or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a Machine Learning model and perform Real-Time Object Detection. My personal favorite sites for finding components for robotic projects are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), and [eBay](https://www.ebay.com/) (useful for scoring great deals on used parts). The possibilities are endless!
