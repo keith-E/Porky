@@ -5,6 +5,7 @@ TODO: pictures and gif of robot in action
 
 ## Table of Contents
 * [Project Overview](#project-overview)
+* [Update History](#update-history)
 * [Hardware List](#hardware-list)
   * [Required Hardware](#required-hardware)
   * [Optional Hardware](#optional-hardware)
@@ -21,7 +22,11 @@ TODO: pictures and gif of robot in action
   * [Clone this Repository](#clone-this-repository)
 * [Testing](#testing)
 * [Deploy the Robot](#deploy-the-robot)
+* [Feedback Statement](#feedback-statement)
 * [References and Acknowledgements](#references-and-acknowledgements)
+
+## Update History
+**2019/05/09:** Initial Release
 
 ## Project Overview
 This guide will teach you how to: 
@@ -75,7 +80,7 @@ Please see the [Capture Images with the Image Capturing Setup](#capture-images-w
 This hardware configuration serves the purpose for testing your hardware components (motors, servos, etc) and software integrations (debugging, testing, sandbox). This setup is geared towards using AC wall adapters to save batteries and keeping moving components as stationary as possible. Having a proper testing setup can potentially save lots of frustration and money. It is strongly suggested to test your own project before deploying it into the wild.
 
 #### Live Deployment Setup
-After performing adequate hardware and software tests, you'll be ready to release your autonomous robot without its leash. This section will show you how my robot was configured for this project. 
+After performing adequate hardware and software tests, you'll be ready to release your autonomous robot without its leash. This section will show you how to configure your robot to be deployed live. 
 
 ## Train Object Detection Model with TensorFlow
 
@@ -125,4 +130,16 @@ During the lifecycle of your robot project, it's a good idea to develop and main
 
 ## Deploy the Robot
 
+## Feedback Statement
+I tried my best to detail all of the processes I used to get this project off the ground, but I may have missed some key steps along the way or you may have experienced some frustrations trying to follow along. With that being said, please don't hesitate to drop me any comments, questions or concerns. I promise to do my best to address your issues.
+
+TODO: add contact links
+
 ## References and Acknowledgements
+**[leswright1977/Rpi3_NCS2](https://github.com/leswright1977/RPi3_NCS2):** leswright1977's bottle-chasing robot introduced me to the Intel NCS2 and its ability to integrate machine learning models for real-time applications.
+
+**[PINTO0309](https://github.com/PINTO0309):** PINTO0309's [MobileNet-SSD-RealSense](https://github.com/PINTO0309/MobileNet-SSD-RealSense) project provided a ton of inspiration for this project especially for the use of hardware choices and multiprocessing in Python to optimize performance.
+
+**[OpenCV Docs](https://docs.opencv.org/):** The official documentation for OpenCV. Necessary for gaining a strong foundation of using OpenCV to build your application.
+
+**[Adafruit Pixy Pet Robot](https://learn.adafruit.com/pixy-pet-robot-color-vision-follower-using-pixycam/overview):** Adafruit's guide on creating color vision following robot using a Pixy CMUCam-5 vision system and Zumo robot platform. This guide was very helpful for learning how to integrate a PID (Proportional-Integral-Deravitive) control feedback loop for the motion mechanisms.
