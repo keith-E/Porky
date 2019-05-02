@@ -1,5 +1,5 @@
-# Create Your Own Object Chasing Robot w/ TensorFlow, Raspberry Pi, and Intel Neural Compute Stick 2
-The goal of this project is to demonstrate real-time object detection with relatively inexpensive components. By training your own Machine Learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able to create your own autonomous object detecting robot! This readme will provide all the steps I used to create this project and will hopefully inspire you to jumpstart your own awesome project.
+# Porky - The Real-Time Object Detecting Autonomous Robot
+The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own Machine Learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
 
 TODO: insert gif of robot in action
 
