@@ -30,7 +30,8 @@ This guide will teach you how to:
 * implement the 
 
 ## Hardware List
-this section describes the hardware involved in the project
+While some of the hardware in this section is described as 'Required' or 'Optional', this is only if you want to follow this guide step-by-step. This does not mean you are restricted to these components if you want to swap, subtract, or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a Machine Learning model and perform Real-Time Object Detection. My personal favorite sites for finding components for robotic projects are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), and [eBay](https://www.ebay.com/) (useful for scoring great deals on used parts). The possibilities are endless!
+
 #### Required Hardware
 * **Raspberry Pi 3 B+**
 * **MicroSD Card for Raspberry Pi**
