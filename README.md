@@ -1,5 +1,5 @@
 # Create Your Own Object Chasing Robot w/ TensorFlow, Raspberry Pi, and Intel Neural Compute Stick 2
-This project demonstrates how to create your own object chasing robot using machine learning, a Raspberry Pi, and Intel's Neural Compute Stick 2. This guide will hopefully jump start your own real-time object detecting robot.
+The goal of this project is to demonstrate real-time object detection with relatively inexpensive components. By training your own Machine Learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able to create your own autonomous object detecting robot! This readme will provide all the steps I used to create this project and will hopefully inspire you to jumpstart your own awesome project.
 
 TODO: insert gif of robot in action
 
@@ -18,7 +18,7 @@ TODO: insert gif of robot in action
 * [Deploy the Optimized Model](#deploy-the-optimized-model)
   * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
   * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
-  * [Clone this Repository onto Raspberry Pi](#clone-this-repository-onto-raspberry-pi)
+  * [Clone this Repository](#clone-this-repository)
 * [Testing](#testing)
 * [Deploy the Robot](#deploy-the-robot)
 * [References and Acknowledgements](#references-and-acknowledgements)
@@ -82,9 +82,13 @@ TODO: clean and add links
 
 #### Install OpenVINO on Dev PC
 
-## Configure the Raspberry Pi Environment
-
 ## Deploy the Optimized Model
+
+#### Install Raspberian on Raspberry Pi
+
+#### Install OpenVINO on Raspberry Pi
+
+#### Clone this Repository
 
 ## Testing
 During the lifecycle of your robot project, it's a good idea to develop and maintain some sort of testing strategy. In this section, I will break down how to use the provided testing scripts and their purpose.
