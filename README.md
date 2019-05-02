@@ -83,12 +83,15 @@ This hardware configuration serves the purpose for testing your hardware compone
 After performing adequate hardware and software tests, you'll be ready to release your autonomous robot without its leash. This section will show you how to configure your robot to be deployed live. 
 
 ## Train Object Detection Model with TensorFlow
+The goal of this section is to use TensorFlow to train your custom model using Transfer Learning. While creating your own Machine Learning model can be extremely rewarding, that process typically involves much configuration, troubleshooting, and training/validating time. A very costly process. However, with Transfer Learning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
+
+#### Create Your Dataset
+
+###### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
+
+###### Label the Captured Images with LabelIMG
 
 #### Install the TensorFlow Framework onto Dev PC
-
-#### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
-
-#### Label the Captured Images with LabelIMG
 
 #### Convert the Images and Annotations into TFRecord Format
 
