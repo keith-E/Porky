@@ -144,15 +144,15 @@ This setup consists of:
 
 TODO: Add fritzing diagram and picture of 'live' environment.
 
+## Clone this Repository to the Raspberry Pi
+First thing's first, clone this repository. Connect to your Raspberry Pi (via SSH or RealVNC) and navigate to your preferred directory to store projects in. Then perform a git clone within the terminal:
+
+```console
+pi@raspberrypi:~$ git clone https://github.com/keith-E/Porky.git
+```
+
 ## Train Object Detection Model with TensorFlow
 The goal of this section is to use TensorFlow to train your custom model using Transfer Learning. While creating your own Machine Learning model can be extremely rewarding, that process typically involves much configuration, troubleshooting, and training/validating time. A very costly process. However, with Transfer Learning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
-
-## Clone this Repository to the Raspberry Pi
-Connect to your Raspberry Pi (via SSH or RealVNC) and navigate to your preferred directory to store projects in. Then clone this repository:
-
-```bash
-git clone https://github.com/keith-E/Porky.git
-```
 
 #### Create Your Dataset
 First, you'll want to create your own dataset. You can do this by utilizing popular [public datasets](https://towardsdatascience.com/the-50-best-public-datasets-for-machine-learning-d80e9f030279) or by creating your own. I chose to create my own dataset for this project in an attempt to create a more unique classification. This process basically follows two steps: gather your data into a collection (with proper filenames to help organization, ie: piggy-1.png, piggy-2.png, etc) and label/annotate your data (label the regions of interest, ie: drawing a rectangle on the object you're classifying in the image and label it appropriately).
