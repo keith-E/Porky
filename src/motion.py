@@ -1,6 +1,5 @@
 from adafruit_servokit import ServoKit
 from pysabertooth import Sabertooth
-import time
 
 
 def constrain(value, min_value, max_value):
