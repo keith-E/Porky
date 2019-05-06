@@ -11,8 +11,7 @@ class Detect:
         self.net = cv.dnn.readNet('frozen_inference_graph.xml', 'frozen_inference_graph.bin')
         self.net.setPreferableTarget(cv.dnn.DNN_TARGET_MYRIAD)
 
-    def start_detection(self, cam_buffer, detection_buffer):
-
+    def start(self, cam_buffer, detection_buffer):
         while True:
             if not cam_buffer.empty():
                 frame = cam_buffer.get()

@@ -23,7 +23,7 @@ class Servos:
             
             pan: a multiprocessing integer value that holds the location of the Pan Servo's angle
             tilt: a multiprocessing integer value that holds the location of the Tilt Servo's angle'''
-    def move_servo_to_position(self, center_buffer, pan, tilt):
+    def follow(self, center_buffer, pan, tilt):
         # Adjust this variable to find the sweet spot for updating the pan and tilt values to follow an object with the
         # servos. Beware that setting this value too high may result in a rebound/bouncing effect.
         angle_increment = 2.5

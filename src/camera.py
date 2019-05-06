@@ -7,7 +7,7 @@ class Camera:
         self.cap.set(cv.CAP_PROP_FRAME_WIDTH, cam_width)
         self.cap.set(cv.CAP_PROP_FRAME_HEIGHT, cam_height)
 
-    def start_camera(self, cam_buffer, detection_buffer, center_buffer, area_buffer):
+    def start(self, cam_buffer, detection_buffer, center_buffer, area_buffer):
         out = None
 
         while True:
