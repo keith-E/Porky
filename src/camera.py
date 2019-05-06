@@ -1,5 +1,5 @@
 import cv2 as cv
-import time
+
 
 class Camera:
     def __init__(self, cam_width=320, cam_height=240):

@@ -1,28 +1,18 @@
-# from:https://software.intel.com/en-us/articles/OpenVINO-Install-RaspberryPI
-import cv2 as cv
-import time
 import sys
 from multiprocessing import Process, Queue, Manager
+from .camera import Camera
+from .motion import Servos, Motors
+from .detection import Detect
 
 pan_angle = 100
 tilt_angle = 140
 
-cam_buffer = None
-detection_buffer = None
-out = None
-center = None
-area = None
-
-
 def main():
-    global cam_buffer
-    global detection_buffer
 
     processes = []
 
     pan_servo.angle = pan_angle
     tilt_servo.angle = tilt_angle
-    saber.stop()
 
     try:
         with Manager() as manager:
