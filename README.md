@@ -16,13 +16,13 @@ TODO: pictures and gif of robot in action
   * [Image Capturing Setup](#image-capturing-setup)
   * [Tweak and Test Setup](#tweak-and-test-setup)
   * [Live Deployment Setup](#live-deployment-setup)
+* [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
 * [Train Object Detection Model with TensorFlow](#train-object-detection-model-with-tensorflow)
 * [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
   * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
 * [Deploy the Optimized Model](#deploy-the-optimized-model)
   * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
   * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
-  * [Clone this Repository](#clone-this-repository)
 * [Testing](#testing)
 * [Deploy the Robot](#deploy-the-robot)
 * [Feedback Statement](#feedback-statement)
@@ -142,13 +142,23 @@ This setup consists of:
 * **4 x AA Battery Holder /w On/Off Switch** [Adafruit Link](https://www.adafruit.com/product/830). To power the PWM/Servo Controller.
 * **4 x AA Batteries**
 
+TODO: Add fritzing diagram and picture of 'live' environment.
+
 ## Train Object Detection Model with TensorFlow
 The goal of this section is to use TensorFlow to train your custom model using Transfer Learning. While creating your own Machine Learning model can be extremely rewarding, that process typically involves much configuration, troubleshooting, and training/validating time. A very costly process. However, with Transfer Learning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
+
+## Clone this Repository to the Raspberry Pi
+Connect to your Raspberry Pi (via SSH or RealVNC) and navigate to your preferred directory to store projects in. Then clone this repository:
+
+```bash
+git clone https://github.com/keith-E/Porky.git
+```
 
 #### Create Your Dataset
 First, you'll want to create your own dataset. You can do this by utilizing popular [public datasets](https://towardsdatascience.com/the-50-best-public-datasets-for-machine-learning-d80e9f030279) or by creating your own. I chose to create my own dataset for this project in an attempt to create a more unique classification. This process basically follows two steps: gather your data into a collection (with proper filenames to help organization, ie: piggy-1.png, piggy-2.png, etc) and label/annotate your data (label the regions of interest, ie: drawing a rectangle on the object you're classifying in the image and label it appropriately).
 
 ###### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
+This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#image-capturing-setup) and find the image_capture.py script within the utils folder.
 
 ###### Label the Captured Images with LabelIMG
 
@@ -175,8 +185,6 @@ Please follow the following [link](https://github.com/tensorflow/models/blob/mas
 #### Install Raspberian on Raspberry Pi
 
 #### Install OpenVINO on Raspberry Pi
-
-#### Clone this Repository
 
 ## Testing
 During the lifecycle of your robot project, it's a good idea to develop and maintain some sort of testing strategy. In this section, I will break down how to use the provided testing scripts and their purpose.
