@@ -152,7 +152,7 @@ pi@raspberrypi:~$ git clone https://github.com/keith-E/Porky.git
 ```
 
 ## Train Object Detection Model with TensorFlow
-The goal of this section is to use TensorFlow to train your custom model using Transfer Learning. While creating your own Machine Learning model can be extremely rewarding, that process typically involves much configuration, troubleshooting, and training/validating time. A very costly process. However, with Transfer Learning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
+The goal of this section is to use TensorFlow to train your custom model using [transfer learning](https://en.wikipedia.org/wiki/Transfer_learning). While creating your own Machine Learning model from the ground up can be extremely rewarding, that process typically involves much more configuration, troubleshooting, and training/validating time... which can be a costly process. However, with transfer tearning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
 
 #### Create Your Dataset
 First, you'll want to create your own dataset. You can do this by utilizing popular [public datasets](https://towardsdatascience.com/the-50-best-public-datasets-for-machine-learning-d80e9f030279) or by creating your own. I chose to create my own dataset for this project in an attempt to create a more unique classification. This process basically follows two steps: gather your data into a collection (with proper filenames to help organization, ie: piggy-1.png, piggy-2.png, etc) and label/annotate your data (label the regions of interest, ie: drawing a rectangle on the object you're classifying in the image and label it appropriately).
@@ -160,9 +160,39 @@ First, you'll want to create your own dataset. You can do this by utilizing popu
 ###### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
 This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#image-capturing-setup) and find the image_capture.py script within the utils folder.
 
+1. Navigate to the utils directory:
+```console
+pi@raspberrypi:~$ cd ./Porky/utils
+```
+
+2. Run the image capturing Python script:
+```console
+pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/YourImageDirectory -picture_label=YourPictureLabel
+```
+This project used the following execution arguments:
+```console
+pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/home/pi/Desktop/piggy-images -picture_label=piggy
+```
+
+3. Capture images by pointing the camera at a subject and pressing the mini-button (which is connected to the breadboard) to take the picture. The pictures will be saved within the directory that was specified and will automatically increment the image label based on the number of images already contained within the folder.
+
+4. After you're satisfied with the amount of images you've taken, create two folders: /train and /validate within your image directory and place about 80% of your total images within the /train directory and the remaining images within the /validate directory. Click this [link](TODO: provide link) to find out why an 80/20 is a popular rule today for training and validating your datasets.
+
 ###### Label the Captured Images with LabelIMG
+This process consists of labelling/annotating your images in a format readable by TensorFlow (this project utilizes the Pascal VOS format).
+
+TODO: Complete and clean up the following process list and add images/gifs to clarify.
+1. Install LabelIMG. [Github Link](https://github.com/tzutalin/labelImg)
+2. Open an image within LabelIMG.
+3. Click button
+4. Label roi
+5. Repeat process for all the images.
 
 #### Install the TensorFlow Framework onto Dev PC
+From PowerShell (if developing from a Windows PC):
+```console
+PS C:\> pip install tensorflow
+```
 
 #### Convert the Images and Annotations into TFRecord Format
 
