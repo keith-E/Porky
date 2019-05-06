@@ -9,6 +9,9 @@ TODO: pictures and gif of robot in action
 * [Hardware List](#hardware-list)
   * [Required Hardware](#required-hardware)
   * [Optional Hardware](#optional-hardware)
+* [Software List](#software-list)
+  * [Dev PC](#dev-pc)
+  * [Raspberry Pi](#raspberry-pi)
 * [Hardware Configuration](#hardware-configuration)
   * [Image Capturing Setup](#image-capturing-setup)
   * [Tweak and Test Setup](#tweak-and-test-setup)
@@ -59,6 +62,26 @@ While some of the hardware in this section is described as 'Required' or 'Option
 * **Velcro Tape (for modular prototype mounting)** I used a [2" Adhesive Black Hook and Loop Tape](https://www.amazon.com/Strenco-Adhesive-Black-Hook-Loop/dp/B00H3R9S1K/ref=sr_1_3?crid=2S3OQ9CVTVMCF&keywords=adhesive+black+hook+and+loop+tape&qid=1556890301&s=industrial&sprefix=adhesive+black+hook+an%2Celectronics%2C406&sr=1-3).
 * **Assorted Electrical Components (switches, buttons, wires, breadboards, etc)** Check out [Adafruit](https://www.adafruit.com/) for great deals on electrical components.
 
+## Software List
+#### Dev PC
+**Please visit the following link: [OpenVINO Windows Toolkit](https://software.intel.com/en-us/openvino-toolkit/choose-download) for installing OpenVINO on your platform.** The following bullet points reflect the requirements based on a Windows 10 environment.
+* Python 3.6.5 with Python Libraries, 64-bit
+* Microsoft Visual Studio with C++ 2019, 2017, or 2015 with MSBuild
+* CMake 3.4+
+* OpenCV 3.4+
+* OpenVINO 2019.R1+
+* TensorFlow (installed via pip)
+
+#### Raspberry Pi
+**Please visit the following link: [OpenVINO Toolkit for Raspberry Pi](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) for installing OpenVINO on your Raspberry Pi.**
+* Python 3.5+ (included with Raspberian Stretch OS)
+* OpenVINO 2019.R1+
+* Python Libraries (non-standard):
+  * OpenCV 4.1+ (included with OpenVINO Toolkit)
+  * ServoKit TODO: Get version and pip name
+  * Pysabertooth TODO: Get version and pip name
+  * pykeyboard (not required, but useful for hardware testing) TODO: Get version and pip name 
+
 ## Hardware Configuration
 The wiring diagrams contained within this section were created with [Fritzing](http://fritzing.org/home/), a fantastic open-source tool.
 
@@ -73,10 +96,29 @@ This setup consists of:
 * **Breadboard** [Tiny Breadboard from Adafruit](https://www.adafruit.com/product/65)
 * **2 Female/Male Wires** [Female/Male 'Extension' Wires from Adafruit](https://www.adafruit.com/product/1954)
 
+TODO: Add fritzing diagram and actual 'live' picture
+
 Please see the [Capture Images with the Image Capturing Setup](#capture-images-with-the-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
 
 #### Tweak and Test Setup
 This hardware configuration serves the purpose for testing your hardware components (motors, servos, etc) and software integrations (debugging, testing, sandbox). This setup is geared towards using AC wall adapters to save batteries and keeping moving components as stationary as possible. Having a proper testing setup can potentially save lots of frustration and money. It is strongly suggested to test your own project before deploying it into the wild.
+
+This setup consists of:
+* **Raspberry Pi 3 B+** w/ MicroSD Card
+* **[Intel Neural Compute Stick 2 (NCS2)](https://software.intel.com/en-us/neural-compute-stick/where-to-buy)**
+* **PS3 Eye USB Camera** TODO: provide a link to ebay search
+* **Display Monitor w/ HDMI Output** Helpful for debugging and testing within Raspberry Pi environment.
+* **HDMI Cable**
+* **Robot Chassis Kit w/ Motors** This project uses the [Lynxmotion 4WD1 Rover Kit](http://www.lynxmotion.com/c-111-a4wd1-no-electronics.aspx). You can purchase this kit directly from [RobotShop](https://www.robotshop.com) or find a used kit on eBay.
+* **Servos x2 w/ Mounting Hardware** This project uses the [Lynxmotion Pan and Tilt Kit](https://www.robotshop.com/en/lynxmotion-pan-and-tilt-kit-aluminium2.html).
+* **PWM/Servo Controller** This project uses this [one](https://www.amazon.com/Channel-Driver-interface-PCA9685-arduino-Raspberry/dp/B01D9VNXEQ/ref=sr_1_fkmrnull_1?keywords=ficbox+pwm%2Fservo&qid=1556889116&s=gateway&sr=8-1-fkmrnull) from Amazon.
+* **Motor Controller** This project uses the [Sabertooth 2X12 Regenerative Dual Channel Motor Controller](http://www.lynxmotion.com/p-562-sabertooth-2x12-regenerative-dual-channel-motor-controller.aspx) which can be found at [RobotShop](https://www.robotshop.com).
+* **Li-Po Battery** To power the motor controller. This project uses a 3S 11.1V 6000 mAh LiPo battery with an XT60 Plug. Search on Amazon or eBay for deals. **These batteries are known to cause fires, so please be aware of the risks and proper handling procedures.**
+* **5V 2.5A Switching Power Supply w/ MicroUSB Connector** [Adafruit Link](https://www.adafruit.com/product/1995). To power Raspberry Pi directly.
+* **5V 2A Power Supply w/ 2.1mm Jack** [Adafruit Link](https://www.adafruit.com/product/276). To power PWM/Servo Controller directly.
+* **Female DC Power Adapter - 2.1mm Jack** [Adafruit Link](https://www.adafruit.com/product/368). To connect Power Supply to PWM/Servo Controller.
+
+TODO: Add fritzing diagram and picture of 'live' environment.
 
 #### Live Deployment Setup
 After performing adequate hardware and software tests, you'll be ready to release your autonomous robot without its leash. This section will show you how to configure your robot to be deployed live. 
