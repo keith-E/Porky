@@ -16,13 +16,13 @@ TODO: pictures and gif of robot in action - robot following pig, robot and pig p
   * [Image Capturing Setup](#image-capturing-setup)
   * [Tweak and Test Setup](#tweak-and-test-setup)
   * [Live Deployment Setup](#live-deployment-setup)
-* [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
 * [Train Object Detection Model with TensorFlow](#train-object-detection-model-with-tensorflow)
 * [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
   * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
 * [Deploy the Optimized Model](#deploy-the-optimized-model)
   * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
   * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
+  * [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
 * [Testing](#testing)
 * [Deploy the Robot](#deploy-the-robot)
 * [Feedback Statement](#feedback-statement)
@@ -151,13 +151,6 @@ This setup consists of:
 
 TODO: Add fritzing diagram and picture of 'live' environment.
 
-## Clone this Repository to the Raspberry Pi
-First thing's first, clone this repository. Connect to your Raspberry Pi (via SSH or RealVNC) and navigate to your preferred directory to store projects in. Then perform a git clone within the terminal:
-
-```console
-pi@raspberrypi:~$ git clone https://github.com/keith-E/Porky.git
-```
-
 ## Train Object Detection Model with TensorFlow
 The goal of this section is to use TensorFlow to train your custom model using [transfer learning](https://en.wikipedia.org/wiki/Transfer_learning). While creating your own Machine Learning model from the ground up can be extremely rewarding, that process typically involves much more configuration, troubleshooting, and training/validating time... which can be a costly process. However, with transfer tearning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
 
@@ -270,13 +263,16 @@ Once you're satisified with accurracy of your machine learning session, you can 
 * model.ckpt-${CHECKPOINT_NUMBER}.meta
 
 ## Optimize Model for Intel Neural Compute Stick 2
+After training the machine learning model with TensorFlow, you're now ready to prepare the model and convert it to an Intermediate Representation (IR). This will allow the model to be utilized with the MYRIAD Plugin (Intel NCS2) and therefore be deployed live with a combination of a Raspberry Pi 3 B+ and an Intel Neural Compute Stick. 
 
+Please read the following guides as a precursor to the next steps:
 * [TensorFlow Guide on Exporting Models](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md)
-
 * [OpenVINO Guide for Converting TensorFlow Models to Intermediate Representation]( https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html)
 
-#### Copy Latest TF Checkpoint to TF models research directory directory
+#### Export TensorFlow Model Checkpoint(s) into a Frozen Inference Graph
 
+1. Copy the [latest checkpoints](#extract-the-latest-checkpoints) to the cloned TensorFlow models\research directory
+2. Execute the following command within PowerShell:
 ```powershell
 PS C:\models\research> py .\object_detection\export_inference_graph.py `
 >> --input_type image_tensor `
@@ -284,12 +280,13 @@ PS C:\models\research> py .\object_detection\export_inference_graph.py `
 >> --trained_checkpoint_prefis model.ckpt-PREFIXNUMBER `
 >> --output_directory PathToOutputDirectory
 ```
-This command will output multiple files to your specified output directory. For the next step we will be utilizing the frozen_inference_graph.pb file.
+This command will output multiple files to your specified output directory, we will be using the frozen_inference_graph.pb file for our next step.
 
 #### Install OpenVINO on Dev PC
-TODO: add detail of installing prerequisites. https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html#Convert_From_TF
+If you haven't done so already, [install OpenVINO](https://software.intel.com/en-us/openvino-toolkit/) on your Dev PC.
 
-#### Convert the Frozen TF File to Optimized IR
+#### Convert the Frozen TensorFlow Graph to Optimized IR
+Navigate to the installed Intel OpenVINO directory and execute the following command within PowerShell:
 ```powershell
 PS C:\Intel\computer_vision_sdk_2018.5.456\deployment_tools\model_optimizer> py .\mo_tf.py `
 >> --input_model C:\PathToYourFrozenTFModel\frozen_inference_graph.pb `
@@ -299,14 +296,30 @@ PS C:\Intel\computer_vision_sdk_2018.5.456\deployment_tools\model_optimizer> py 
 ```
 Take note of the line: --data_type FP16, the Myriad VPU (Neural Compute Stick) only supports 16-bit precision. If the line is left out, the converted model will not work with your compute stick(s).
 
+TODO: add outputted file names and descriptions
+
 ## Deploy the Optimized Model
 
 #### Install Raspberian on Raspberry Pi
+If you're unfamiliar with the Raspberry Pi platform, follow [this official guide](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) to set your Pi up. Be sure to download Raspberian for your OS.
 
 #### Install OpenVINO on Raspberry Pi
+The next step is to install OpenVINO on your Raspberry Pi, please follow [this guide](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) to do so.
+
+You should see the following message within your Raspberry Pi terminal:
+
+TODO: insert picture of setupvars.sh being executed.
+
+#### Clone this Repository to the Raspberry Pi
+Connect to your Raspberry Pi (via SSH, RealVNC, or locally) and navigate to your preferred directory to store projects in. Then perform a git clone within the terminal:
+
+```console
+pi@raspberrypi:~$ git clone https://github.com/keith-E/Porky.git
+```
 
 ## Testing
 During the lifecycle of your robot project, it's a good idea to develop and maintain some sort of testing strategy. In this section, I will break down how to use the provided testing scripts and their purpose.
+
 #### Hardware Specific Tests
 ###### Test the Camera
 ###### Test the Motors
@@ -329,7 +342,7 @@ I tried my best to detail all of the processes I used to get this project off th
 ## References and Acknowledgements
 **[leswright1977/Rpi3_NCS2](https://github.com/leswright1977/RPi3_NCS2):** leswright1977's bottle-chasing robot introduced me to the Intel NCS2 and its ability to integrate machine learning models for real-time applications.
 
-**[PINTO0309](https://github.com/PINTO0309):** PINTO0309's [MobileNet-SSD-RealSense](https://github.com/PINTO0309/MobileNet-SSD-RealSense) project provided a ton of inspiration for this project especially for the use of hardware choices and multiprocessing in Python to optimize performance.
+**[PINTO0309](https://github.com/PINTO0309):** PINTO0309's [MobileNet-SSD-RealSense](https://github.com/PINTO0309/MobileNet-SSD-RealSense) project introduced me to using multiprocessing with OpenCV and Intel's CNN backend in order to achieve faster results.
 
 **[Fritzing - An Open Source Diagram Design Tool](http://fritzing.org/home/)**
 
