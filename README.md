@@ -207,8 +207,31 @@ Please follow the following [link](https://github.com/tensorflow/models/blob/mas
 #### Extract the Trained Model
 
 ## Optimize Model for Intel Neural Compute Stick 2
+#### Clone TensorFlow models to your Dev PC
+
+#### Copy Latest TF Checkpoint to TF models research directory directory
+
+```powershell
+PS C:\models\research> py .\object_detection\export_inference_graph.py `
+>> --input_type image_tensor `
+>> --pipeline_config_path C:\PathToYourPipelineConfigFile
+>> --trained_checkpoint_prefis model.ckpt-PREFIXNUMBER `
+>> --output_directory PathToOutputDirectory
+```
+This command will output multiple files to your specified output directory. For the next step we will be utilizing the frozen_inference_graph.pb file.
 
 #### Install OpenVINO on Dev PC
+TODO: add detail of installing prerequisites. https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html#Convert_From_TF
+
+#### Convert the Frozen TF File to Optimized IR
+```powershell
+PS C:\Intel\computer_vision_sdk_2018.5.456\deployment_tools\model_optimizer> py .\mo_tf.py `
+>> --input_model C:\PathToYourFrozenTFModel\frozen_inference_graph.pb `
+>> --tensorflow_use_custom_operations_config C:\Intel\computer_vision_sdk_2018.5.456\deployment_tools\model_optimizer\extensions\front\tf\ssd_v2_support.json `
+>> --tensorflow_object_detection_api_pipeline_config C:\PathToYourPipelineConfigFile
+>> --data_type FP16
+```
+Take note of the line: --data_type FP16, the Myriad VPU (Neural Compute Stick) only supports 16-bit precision. If the line is left out, the converted model will not work with your compute stick(s).
 
 ## Deploy the Optimized Model
 
