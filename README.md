@@ -293,11 +293,15 @@ I tried my best to detail all of the processes I used to get this project off th
 
 **[PINTO0309](https://github.com/PINTO0309):** PINTO0309's [MobileNet-SSD-RealSense](https://github.com/PINTO0309/MobileNet-SSD-RealSense) project provided a ton of inspiration for this project especially for the use of hardware choices and multiprocessing in Python to optimize performance.
 
+**[Fritzing - An Open Source Diagram Design Tool](http://fritzing.org/home/)**
+
 **[TensorFlow Object Detector API Readme](https://github.com/tensorflow/models/tree/master/research/object_detection)**
 
 **[How to train your own Object Detector with TensorFlow’s Object Detector API:](https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9)** This article was great for providing a great easy-to-follow reference for creating the dataset(s) for this project. The xml_to_csv.py and generate_tf_record.py scripts were also utilized from the author's [github repository](https://github.com/datitran/raccoon_dataset)
 
 **[Creating your own object detector:](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85)** This article provided a good reference and filled some blanks for preparing a dataset to be utilized for TensorFlow training. With a combination of the official TensorFlow documentation (Object Detector API Readme), Dat Tran's article (provided above), and this article, I was able to successfully train a customized machine learning model with TensorFlow and transfer learning.
+
+**[Running TensorFlow on the Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_cloud.md)
 
 **[OpenCV Docs](https://docs.opencv.org/):** The official documentation for OpenCV. Necessary for gaining a strong foundation of using OpenCV to build your application.
 
