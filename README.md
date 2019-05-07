@@ -1,7 +1,7 @@
 # Porky: The Real-Time Object Detecting Robot
 The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own Machine Learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
 
-TODO: pictures and gif of robot in action
+TODO: pictures and gif of robot in action - robot following pig, robot and pig picture, cv capture of object detection
 
 ## Table of Contents
 * [Project Overview](#project-overview)
@@ -94,9 +94,13 @@ This setup consists of:
 * **Portable Powerbank** [RAVPower Portable Charger](https://www.amazon.com/Portable-RAVPower-26800mAh-Double-Speed-Recharging/dp/B07793KSV4/ref=sr_1_3?keywords=ravpower+usb+c+portable+charger&qid=1556890740&s=industrial&sr=1-3-catcorr)
 * **Mini Button** [Tactile Button Switches from Adafruit](https://www.adafruit.com/product/367)
 * **Breadboard** [Tiny Breadboard from Adafruit](https://www.adafruit.com/product/65)
+* **USB C to MicroUSB Cable** To power the Raspberry Pi with the Powerbank. 
 * **2 Female/Male Wires** [Female/Male 'Extension' Wires from Adafruit](https://www.adafruit.com/product/1954)
 
+Wire Diagram of the Button setup for the Raspberry Pi. Note: the USB Camera and Powerbank are missing from this diagram.
 ![Imgur](https://i.imgur.com/KZoeVSA.png)
+
+Image of the configured setup.
 ![Imgur](https://i.imgur.com/sHKt3Yb.jpg)
 
 Please see the [Capture Images with the Image Capturing Setup](#capture-images-with-the-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
@@ -120,6 +124,7 @@ This setup consists of:
 * **5V 2.5A Switching Power Supply w/ MicroUSB Connector** [Adafruit Link](https://www.adafruit.com/product/1995). To power Raspberry Pi directly.
 * **5V 2A Power Supply w/ 2.1mm Jack** [Adafruit Link](https://www.adafruit.com/product/276). To power PWM/Servo Controller directly.
 * **Female DC Power Adapter - 2.1mm Jack** [Adafruit Link](https://www.adafruit.com/product/368). To connect Power Supply to PWM/Servo Controller.
+* **USB Adapters** TODO: add link. To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
 
 TODO: Add fritzing diagram and picture of 'live' environment.
 
@@ -142,6 +147,7 @@ This setup consists of:
 * **Portable Powerbank** Be aware that not all portable chargers are compatible for Raspberry Pi projects. This project uses this [RAVPower Portable Charger](https://www.amazon.com/Portable-RAVPower-26800mAh-Double-Speed-Recharging/dp/B07793KSV4/ref=sr_1_3?keywords=ravpower+usb+c+portable+charger&qid=1556890740&s=industrial&sr=1-3-catcorr).
 * **4 x AA Battery Holder /w On/Off Switch** [Adafruit Link](https://www.adafruit.com/product/830). To power the PWM/Servo Controller.
 * **4 x AA Batteries**
+* **USB Adapters** TODO: add link. To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
 
 TODO: Add fritzing diagram and picture of 'live' environment.
 
@@ -155,8 +161,16 @@ pi@raspberrypi:~$ git clone https://github.com/keith-E/Porky.git
 ## Train Object Detection Model with TensorFlow
 The goal of this section is to use TensorFlow to train your custom model using [transfer learning](https://en.wikipedia.org/wiki/Transfer_learning). While creating your own Machine Learning model from the ground up can be extremely rewarding, that process typically involves much more configuration, troubleshooting, and training/validating time... which can be a costly process. However, with transfer tearning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
 
+The following guides were used as reference for the machine learning sections:
+* [TensorFlow Object Detector API Readme](https://github.com/tensorflow/models/tree/master/research/object_detection)
+* [How to train your own Object Detector with TensorFlow’s Object Detector API](https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9)
+* [Creating your own object detector](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85)
+
+Please read the above links to fill in missing gaps while this guide is updated and to get a deeper understanding of how to customize your dataset and use the TensorFlow framework for machine learning.
+
 #### Create Your Dataset
 First, you'll want to create your own dataset. You can do this by utilizing popular [public datasets](https://towardsdatascience.com/the-50-best-public-datasets-for-machine-learning-d80e9f030279) or by creating your own. I chose to create my own dataset for this project in an attempt to create a more unique classification. This process basically follows two steps: gather your data into a collection (with proper filenames to help organization, ie: piggy-1.png, piggy-2.png, etc) and label/annotate your data (label the regions of interest, ie: drawing a rectangle on the object you're classifying in the image and label it appropriately).
+
 
 ###### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
 This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#image-capturing-setup) and find the image_capture.py script within the utils folder.
@@ -182,19 +196,32 @@ pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/home/pi/Desktop/
 ###### Label the Captured Images with LabelIMG
 This process consists of labelling/annotating your images in a format readable by TensorFlow (this project utilizes the Pascal VOS format).
 
-TODO: Complete and clean up the following process list and add images/gifs to clarify.
-1. Install LabelIMG. [Github Link](https://github.com/tzutalin/labelImg)
-2. Open an image within LabelIMG.
-3. Click button
-4. Label roi
-5. Repeat process for all the images.
+1. Install LabelIMG and launch LabelIMG. [Github Link](https://github.com/tzutalin/labelImg)
+2. Click 'Change default saved annotation folder' in Menu -> File and choose the directory you want your 'train' annotations to be saved in.
+3. Click 'Open Dir' and choose the directory that contains your 'train' images.
+4. Click on an image to annotate.
+5. Click 'Create RectBox'
+6. Click and drag a rectangluar box over the portion of the image you want to classify and release the mouse button when you've outlined the region of interest.
+7. A pop-up window will display that will prompt you to input a label for the region of interest that you outlined. Input the label and press the 'Ok' button or hit the 'Enter' key on your keyboard.
+8. Repeat steps 4 through 7 until you've labelled all of the images within the directory.
+9. Repeat steps 2 through 8 for the 'validate' portion of your dataset.
 
 #### Install the TensorFlow Framework onto Dev PC
-From PowerShell (if developing from a Windows PC):
-```console
+Once you've gathered and labelled your dataset, your now ready to work with TensorFlow.
+
+From PowerShell (if developing from a Windows PC) install TensorFlow to your Python Environment (virtual preferred - will be updated in the future):
+```powershell
 PS C:\> pip install tensorflow
 ```
 
+Now install the TensorFlow models repository to your Dev PC:
+```powershell
+PS C:\> cd PathToPreferredDirectory
+PS C:\> git clone https://github.com/tensorflow/models.git
+```
+The TensorFlow models repository will contain
+
+#### Convert the XML Annotations to CSV
 #### Convert the Images and Annotations into TFRecord Format
 
 #### Pick an Already Trained Model and Use Transfer Learning
@@ -267,6 +294,12 @@ TODO: add contact links
 **[leswright1977/Rpi3_NCS2](https://github.com/leswright1977/RPi3_NCS2):** leswright1977's bottle-chasing robot introduced me to the Intel NCS2 and its ability to integrate machine learning models for real-time applications.
 
 **[PINTO0309](https://github.com/PINTO0309):** PINTO0309's [MobileNet-SSD-RealSense](https://github.com/PINTO0309/MobileNet-SSD-RealSense) project provided a ton of inspiration for this project especially for the use of hardware choices and multiprocessing in Python to optimize performance.
+
+**[TensorFlow Object Detector API Readme]**(https://github.com/tensorflow/models/tree/master/research/object_detection)
+
+**[How to train your own Object Detector with TensorFlow’s Object Detector API:]**(https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9) This article was great for providing a great easy-to-follow reference for creating the dataset(s) for this project. The xml_to_csv.py and generate_tf_record.py scripts were also utilized from the author's [github repository](https://github.com/datitran/raccoon_dataset)
+
+* [Creating your own object detector](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85) This article provided a good reference and filled some blanks for preparing a dataset to be utilized for TensorFlow training. With a combination of the official TensorFlow documentation (Object Detector API Readme), Dat Tran's article (provided above), and this article, I was able to successfully train a customized machine learning model with TensorFlow and transfer learning.
 
 **[OpenCV Docs](https://docs.opencv.org/):** The official documentation for OpenCV. Necessary for gaining a strong foundation of using OpenCV to build your application.
 
