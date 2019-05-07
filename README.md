@@ -86,7 +86,7 @@ While some of the hardware in this section is described as 'Required' or 'Option
 The wiring diagrams contained within this section were created with [Fritzing](http://fritzing.org/home/), a fantastic open-source tool.
 
 #### Image Capturing Setup
-To train your own Machine Learning model, you will need to gather the data to train and validate your model on. The idea for this project was to train the model based on images captured with an identical camera that was eventually going to be deployed live.
+To train your own Machine Learning model, you will need to gather the data to train and validate/test your model on. The idea for this project was to train the model based on images captured with an identical camera that was eventually going to be deployed live.
 
 This setup consists of:
 * **Raspberry Pi 3 B+** w/ MicroSD Card
@@ -191,12 +191,12 @@ pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/home/pi/Desktop/
 
 3. Capture images by pointing the camera at a subject and pressing the mini-button (which is connected to the breadboard) to take the picture. The pictures will be saved within the directory that was specified and will automatically increment the image label based on the number of images already contained within the folder.
 
-4. After you're satisfied with the amount of images you've taken, create two folders: /train and /validate within your image directory and place about 80% of your total images within the /train directory and the remaining images within the /validate directory. Click this [link](TODO: provide link) to find out why an 80/20 is a popular rule today for training and validating your datasets.
+4. After you're satisfied with the amount of images you've taken, create two folders: /train and /test within your image directory and place about 80% of your total images within the /train directory and the remaining images within the /test directory. Click this [link](TODO: provide link) to find out why an 80/20 is a popular rule today for training and validating your datasets.
 
 ###### Label the Captured Images with LabelIMG
 This process consists of labelling/annotating your images in a format readable by TensorFlow (this project utilizes the Pascal VOS format).
 
-1. Install LabelIMG and launch LabelIMG. [Github Link](https://github.com/tzutalin/labelImg)
+1. Install and launch LabelIMG. [Github Link](https://github.com/tzutalin/labelImg)
 2. Click 'Change default saved annotation folder' in Menu -> File and choose the directory you want your 'train' annotations to be saved in.
 3. Click 'Open Dir' and choose the directory that contains your 'train' images.
 4. Click on an image to annotate.
@@ -204,7 +204,7 @@ This process consists of labelling/annotating your images in a format readable b
 6. Click and drag a rectangluar box over the portion of the image you want to classify and release the mouse button when you've outlined the region of interest.
 7. A pop-up window will display that will prompt you to input a label for the region of interest that you outlined. Input the label and press the 'Ok' button or hit the 'Enter' key on your keyboard.
 8. Repeat steps 4 through 7 until you've labelled all of the images within the directory.
-9. Repeat steps 2 through 8 for the 'validate' portion of your dataset.
+9. Repeat steps 2 through 8 for the 'test' portion of your dataset.
 
 #### Install the TensorFlow Framework onto Dev PC
 Once you've gathered and labelled your dataset, your now ready to work with TensorFlow.
@@ -222,7 +222,29 @@ PS C:\> git clone https://github.com/tensorflow/models.git
 The TensorFlow models repository will contain
 
 #### Convert the XML Annotations to CSV
+See [Dat Tran's repository](https://github.com/datitran/raccoon_dataset/) for the xml_to_csv.py script utilized for this step. The modified version of this script is contained within the src/utils/ directory of this project's repository. See [Gilbert Tanner's article](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85) on how those modifications came to be.
+
+After the modifications are made, use the following command:
+```powershell
+PS C:\> py xml_to_csv.py
+```
+
+This well create two CSV files: train_labels.csv and test_labels.csv.
+
 #### Convert the Images and Annotations into TFRecord Format
+This step requires two things to be done: your captured images need to be seperated into a two directories (train and test) and you'll need two corresponding csv files that contain your labels/annotations in Pascal VOC format.
+
+First, modify the script, generate_tfrecord.py ([Dat Tran's repository](https://github.com/datitran/raccoon_dataset/)) to fit your labels. See the modified version of this script contained within the src/utils/ directory of this project's repository. After the script has been modified, run the following commands:
+
+To convert your 'train' images and labels to TFRecord format:
+```powershell
+PS C:\> py generate_tfrecord.py --csv_input=PathToLabelsCSVFile\train_labels.csv --image_dir=PathToImageDirectory\train --output_path=train.record
+```
+
+To convert your 'test' images and labels to TFRecord format:
+```powershell
+PS C:\> py generate_tfrecord.py --csv_input=PathToLabelsCSVFiles\test_labels.csv --image_dir=PathToImageDirectory\test --output_path=test.record
+```
 
 #### Pick an Already Trained Model and Use Transfer Learning
 
@@ -231,6 +253,8 @@ If you have access to a capable GPU, I suggest performing Machine Learning local
 
 ##### Using the Google Cloud Platform for Machine Learning
 Please follow the following [link](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_cloud.md) to guide you through this process. Be aware that there are frustrations dealing with depcrecated functions and bash commands within the Windows platform. In a future update, I will thoroughly detail the process I used via Windows 10 in this guide. In the meantime, feel free to provide some feedback on any issues you incur and I will attempt to help you as best as I can.
+
+Another useful guide from TensorFlow: [Quick Start: Distributed Training on the Oxford-IIIT Pets Dataset on Google Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_pets.md) 
 
 #### Extract the Trained Model
 
@@ -301,7 +325,7 @@ I tried my best to detail all of the processes I used to get this project off th
 
 **[Creating your own object detector:](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85)** This article provided a good reference and filled some blanks for preparing a dataset to be utilized for TensorFlow training. With a combination of the official TensorFlow documentation (Object Detector API Readme), Dat Tran's article (provided above), and this article, I was able to successfully train a customized machine learning model with TensorFlow and transfer learning.
 
-**[Running TensorFlow on the Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_cloud.md)
+**[Running TensorFlow on the Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_cloud.md)**
 
 **[OpenCV Docs](https://docs.opencv.org/):** The official documentation for OpenCV. Necessary for gaining a strong foundation of using OpenCV to build your application.
 
