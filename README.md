@@ -97,10 +97,12 @@ This setup consists of:
 * **USB C to MicroUSB Cable** To power the Raspberry Pi with the Powerbank. 
 * **2 Female/Male Wires** [Female/Male 'Extension' Wires from Adafruit](https://www.adafruit.com/product/1954)
 
-Wire Diagram of the Button setup for the Raspberry Pi. Note: the USB Camera and Powerbank are missing from this diagram.
+Wire Diagram of the Button setup for the Raspberry Pi:
 ![Imgur](https://i.imgur.com/KZoeVSA.png)
+**Note: the USB Camera and Powerbank are missing from this diagram.**
 
-Image of the configured setup.
+Image of the configured setup:
+
 ![Imgur](https://i.imgur.com/sHKt3Yb.jpg)
 
 Please see the [Capture Images with the Image Capturing Setup](#capture-images-with-the-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
