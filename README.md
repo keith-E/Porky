@@ -96,7 +96,7 @@ This setup consists of:
 * **Breadboard** [Tiny Breadboard from Adafruit](https://www.adafruit.com/product/65)
 * **2 Female/Male Wires** [Female/Male 'Extension' Wires from Adafruit](https://www.adafruit.com/product/1954)
 
-TODO: Add fritzing diagram and actual 'live' picture
+![Imgur](https://i.imgur.com/KZoeVSA.png)
 ![Imgur](https://i.imgur.com/sHKt3Yb.jpg)
 
 Please see the [Capture Images with the Image Capturing Setup](#capture-images-with-the-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
