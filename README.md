@@ -219,7 +219,7 @@ Now install the TensorFlow models repository to your Dev PC:
 PS C:\> cd PathToPreferredDirectory
 PS C:\> git clone https://github.com/tensorflow/models.git
 ```
-The TensorFlow models repository will contain
+The TensorFlow models repository will contain useful configuration scripts to configure your machine learning pipeline.
 
 #### Convert the XML Annotations to CSV
 See [Dat Tran's repository](https://github.com/datitran/raccoon_dataset/) for the xml_to_csv.py script utilized for this step. The modified version of this script is contained within the src/utils/ directory of this project's repository. See [Gilbert Tanner's article](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85) on how those modifications came to be.
@@ -247,6 +247,11 @@ PS C:\> py generate_tfrecord.py --csv_input=PathToLabelsCSVFiles\test_labels.csv
 ```
 
 #### Pick an Already Trained Model and Use Transfer Learning
+To save some cost and time, you can pick out an already trained machine learning model to use for your customized dataset. The following two bullet points will help you in the process of choosing an appropriate model:
+* [TensorFlow Object Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
+* [List of Supported Models for the MYRIAD (NCS2) Plugin](https://docs.openvinotoolkit.org/latest/_docs_IE_DG_supported_plugins_MYRIAD.html)
+
+This project uses the [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz) model. It's not listed as an officially supported Myriad model (which I learned after the fact), but I was lucky in the case that it actually worked for my use case.
 
 #### Deploy the TensorFlow Training Session
 If you have access to a capable GPU, I suggest performing Machine Learning locally. However, if you're like me and don't have immediate access to a capable GPU, you can use a cloud compute service to perform your Machine Learning for you. For this project, I used the Google Cloud Platform to perform the TensorFlow training.
@@ -256,10 +261,19 @@ Please follow the following [link](https://github.com/tensorflow/models/blob/mas
 
 Another useful guide from TensorFlow: [Quick Start: Distributed Training on the Oxford-IIIT Pets Dataset on Google Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_pets.md) 
 
-#### Extract the Trained Model
+#### Extract the Latest Checkpoints
+Once you're satisified with accurracy of your machine learning session, you can kill the TensorFlow process and extract the latest checkpoints for your trained model. If you used the Google Cloud Platform, the checkpoint files will be contained within your storage bucket.
+
+[A checkpoint will typically consist of three files](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md):
+* model.ckpt-${CHECKPOINT_NUMBER}.data-00000-of-00001
+* model.ckpt-${CHECKPOINT_NUMBER}.index
+* model.ckpt-${CHECKPOINT_NUMBER}.meta
 
 ## Optimize Model for Intel Neural Compute Stick 2
-#### Clone TensorFlow models to your Dev PC
+
+* [TensorFlow Guide on Exporting Models](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md)
+
+* [OpenVINO Guide for Converting TensorFlow Models to Intermediate Representation]( https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html)
 
 #### Copy Latest TF Checkpoint to TF models research directory directory
 
