@@ -3,7 +3,8 @@ The goal of this project is to demonstrate how to create a real-time object dete
 
 TODO: pictures and gif of robot in action - robot following pig, robot and pig picture, cv capture of object detection
 
-![](./docs/images/porky_follow.gif)
+![Follow the Piggy](./docs/images/porky_follow.gif)
+![Robot and Porky](./docs/images/piggy_and_robot_352x266.jpg)
 
 ## Table of Contents
 * [Project Overview](#project-overview)
