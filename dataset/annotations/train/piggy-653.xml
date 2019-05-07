@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>piggy-653.jpg</filename>
+	<path>E:\machine_learning\stuffed_piggy\dataset\images\train\piggy-653.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>320</width>
+		<height>240</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>piggy</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>82</xmin>
+			<ymin>18</ymin>
+			<xmax>149</xmax>
+			<ymax>104</ymax>
+		</bndbox>
+	</object>
+</annotation>
