@@ -3,6 +3,8 @@ The goal of this project is to demonstrate how to create a real-time object dete
 
 TODO: pictures and gif of robot in action - robot following pig, robot and pig picture, cv capture of object detection
 
+![Imgur](https://i.imgur.com/VGLpxF2.gifv)
+
 ## Table of Contents
 * [Project Overview](#project-overview)
 * [Update History](#update-history)
@@ -99,7 +101,8 @@ This setup consists of:
 
 Wire Diagram of the Button setup for the Raspberry Pi:
 ![Imgur](https://i.imgur.com/KZoeVSA.png)
-**Note: the USB Camera and Powerbank are missing from this diagram.**
+
+**Note: the USB Camera and Powerbank are missing from the diagram above.**
 
 Image of the configured setup:
 
