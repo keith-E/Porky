@@ -24,9 +24,11 @@ class Camera:
             if out is not None:
                 frame = process_detection(frame, out)
 
-            cv.imshow('frame', frame)
+            cv.imshow('Object Detection', frame)
+            
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
+                
         self.cap.release()
         cv.destroyAllWindows()
         
