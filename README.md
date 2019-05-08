@@ -178,7 +178,7 @@ This setup consists of:
 * **5V 2.5A Switching Power Supply w/ MicroUSB Connector** [Adafruit Link](https://www.adafruit.com/product/1995). To power Raspberry Pi directly.
 * **5V 2A Power Supply w/ 2.1mm Jack** [Adafruit Link](https://www.adafruit.com/product/276). To power PWM/Servo Controller directly.
 * **Female DC Power Adapter - 2.1mm Jack** [Adafruit Link](https://www.adafruit.com/product/368). To connect Power Supply to PWM/Servo Controller.
-* **USB Adapters** TODO: add link. To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
+* **USB Adapters** [Amazon Link](https://www.amazon.com/gp/product/B018V9VXK2/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
 
 Robot top plate partially off to display the motor controller and Li-Po battery inside:
 
@@ -247,12 +247,12 @@ pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathYourImageDir
 
 3. Capture images by pointing the camera at a subject and pressing the mini-button (which is connected to the breadboard) to take the picture. The pictures will be saved within the directory that was specified and will automatically increment the image label based on the number of images already contained within the folder.
 
-4. After you're satisfied with the amount of images you've taken, create two folders: /train and /test within your image directory and place about 80% of your total images within the /train directory and the remaining images within the /test directory. Click this [link](TODO: provide link) to find out why an 80/20 is a popular rule today for training and validating your datasets.
+4. After you're satisfied with the amount of images you've taken, create two folders: /train and /test within your image directory and place about 80% of your total images within the /train directory and the remaining images within the /test directory. Click this [StackOverflow link](https://stackoverflow.com/questions/13610074/is-there-a-rule-of-thumb-for-how-to-divide-a-dataset-into-training-and-validatio) to find out more about the 80/20 split.
 
 #### Label the Captured Images with LabelIMG
 This process consists of labelling/annotating your images in a format readable by TensorFlow (this project utilizes the Pascal VOS format).
 
-1. Install and launch LabelIMG. [Github Link](https://github.com/tzutalin/labelImg)
+1. Install and launch LabelIMG. [GitHub Link](https://github.com/tzutalin/labelImg)
 2. Click 'Change default saved annotation folder' in Menu -> File and choose the directory you want your 'train' annotations to be saved in.
 3. Click 'Open Dir' and choose the directory that contains your 'train' images.
 4. Click on an image to annotate.
@@ -374,9 +374,11 @@ If you're unfamiliar with the Raspberry Pi platform, follow [this official guide
 ### Install OpenVINO on Raspberry Pi
 The next step is to install OpenVINO on your Raspberry Pi, please follow [this guide](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) to do so.
 
-You should see the following message within your Raspberry Pi terminal:
+You should see the following message within your Raspberry Pi terminal once you've completed the install:
 
-TODO: insert picture of setupvars.sh being executed.
+**[setupvars.sh] OpenVINO environment initialized**
+
+![setupvars.sh initialized](./docs/images/setupvars_correct_494x129.jpg)
 
 ### Clone this Repository to the Raspberry Pi
 Connect to your Raspberry Pi (via SSH, RealVNC, or locally) and navigate to your preferred directory to store projects in. Then perform a git clone within the terminal:
