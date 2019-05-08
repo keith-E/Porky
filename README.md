@@ -60,7 +60,7 @@ As a result, please regard the following tips:
   * Refer to the links provided inline and the [References and Acknowledgements](#references-and-acknowledgements) for further explanations and examples.
   * When prompted with code/terminal examples that contain expressions that start with 'Path' and finish in [camel case](https://en.wikipedia.org/wiki/Camel_case) format, it's expected that you replace this expression with your own path.
   
-  For example **PathToYourImageDirectory** and **PathToYourPictureLabel**:
+  For example **PathToYourImageDirectory** and **PathToYourPictureLabel** are intended to be changed to reflect your working environment:
   ```console
   pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathToYourImageDirectory -picture_label=PathToYourPictureLabel
   ```
