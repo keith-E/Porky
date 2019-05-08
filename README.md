@@ -34,7 +34,11 @@ The goal of this project is to demonstrate how to create a real-time object dete
     * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
     * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
     * [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
+    * [Replace IR Model within Cloned Repository](#replace-ir-model-within-cloned-repository)
 10. [Testing](#testing)
+     * [Hardware Specific Tests](#hardware-specific-tests)
+     * [Unit Tests](#unit-tests)
+     * [Integration Tests](#integration-tests)
 11. [Deploy the Robot](#deploy-the-robot)
 12. [Feedback](#feedback)
 13. [References and Acknowledgements](#references-and-acknowledgements)
@@ -353,37 +357,40 @@ We're primarily looking for the model weights (.bin) and config (.xml) files for
 ## Deploy the Optimized IR Model
 Now that you have your IR Model, you can now deploy it into a script by using OpenCV and/or the OpenVINO SDK.
 
-#### Install Raspberian on Raspberry Pi
+### Install Raspberian on Raspberry Pi
 If you're unfamiliar with the Raspberry Pi platform, follow [this official guide](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) to set your Pi up. Be sure to download Raspberian for your OS.
 
-#### Install OpenVINO on Raspberry Pi
+### Install OpenVINO on Raspberry Pi
 The next step is to install OpenVINO on your Raspberry Pi, please follow [this guide](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) to do so.
 
 You should see the following message within your Raspberry Pi terminal:
 
 TODO: insert picture of setupvars.sh being executed.
 
-#### Clone this Repository to the Raspberry Pi
+### Clone this Repository to the Raspberry Pi
 Connect to your Raspberry Pi (via SSH, RealVNC, or locally) and navigate to your preferred directory to store projects in. Then perform a git clone within the terminal:
 
 ```console
 pi@raspberrypi:~$ git clone https://github.com/keith-E/Porky.git
 ```
 
-## Testing
-During the lifecycle of your robot project, it's a good idea to develop and maintain some sort of testing strategy. In this section, I will break down how to use the provided testing scripts and their purpose.
+### Replace IR Model within Cloned Repository
+If you've trained your own machine learning model, replace the **frozen_inference_graph.bin** and **frozen_inference_graph.xml** files within the src directory with your own. If you didn't train your own model, you can utilize the provided model... but be aware that the provided model was trained on a stuffed piggy :pig2: and may not give you the best results. 
 
-#### Hardware Specific Tests
+## Testing
+During the lifecycle of your robot project, it's a good idea to develop and maintain some sort of testing strategy. This section demonstrates how to use the provided testing scripts and their purpose.
+
+### Hardware Specific Tests
 ###### Test the Camera
 ###### Test the Motors
 ###### Test the Servos
 
-#### Unit Tests
+### Unit Tests
 ###### Test the ML Model
 ###### Test the Camera Process
 ###### Test the Detection Process
 
-#### Integration Tests
+### Integration Tests
 ###### Test Detection with Pan and Tilt
 ###### Test Detection with Pan and Follow
 
