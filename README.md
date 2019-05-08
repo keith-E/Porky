@@ -1,36 +1,33 @@
 # Porky: The Real-Time Object Detecting Robot
 The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own Machine Learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
 
-TODO: pictures and gif of robot in action - robot following pig, robot and pig picture, cv capture of object detection
-
 ![Follow the Piggy](./docs/images/porky_follow.gif)
 ![Find the Piggy](./docs/images/piggy_detection.gif)
 ![Robot and Porky](./docs/images/piggy_and_robot_352x266.jpg)
-
 
 ## Table of Contents
 1. [Update History](#update-history)
 2. [Project Overview](#project-overview)
 3. [Hardware List](#hardware-list)
-  * [Required Hardware](#required-hardware)
-  * [Optional Hardware](#optional-hardware)
+    * [Required Hardware](#required-hardware)
+    * [Optional Hardware](#optional-hardware)
 4. [Software List](#software-list)
-  * [Dev PC](#dev-pc)
-  * [Raspberry Pi](#raspberry-pi)
+    * [Dev PC](#dev-pc)
+    * [Raspberry Pi](#raspberry-pi)
 5. [Hardware Configuration](#hardware-configuration)
-  * [Image Capturing Setup](#image-capturing-setup)
-  * [Tweak and Test Setup](#tweak-and-test-setup)
-  * [Live Deployment Setup](#live-deployment-setup)
+    * [Image Capturing Setup](#image-capturing-setup)
+    * [Tweak and Test Setup](#tweak-and-test-setup)
+    * [Live Deployment Setup](#live-deployment-setup)
 6. [Train Object Detection Model with TensorFlow](#train-object-detection-model-with-tensorflow)
 7. [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
-  7.1 [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
+    * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
 8. [Deploy the Optimized Model](#deploy-the-optimized-model)
-  8.1 [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
-  8.2 [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
-  8.3 [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
+    * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
+    * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
+    * [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
 9. [Testing](#testing)
 10. [Deploy the Robot](#deploy-the-robot)
-11. [Feedback Statement](#feedback-statement)
+11. [Feedback](#feedback)
 12. [References and Acknowledgements](#references-and-acknowledgements)
 
 ## Update History
@@ -46,12 +43,12 @@ This guide will teach you how to:
 ## Hardware List
 While some of the hardware in this section is described as 'Required' or 'Optional', this is only if you want to follow this guide step-by-step. This does not mean you are restricted to these components if you want to swap, subtract, or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a Machine Learning model and perform Real-Time Object Detection. My personal favorite sites for finding components for robotic projects are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), and [eBay](https://www.ebay.com/) (useful for scoring great deals on used parts). The possibilities are endless!
 
-#### Required Hardware
+### Required Hardware
 * **Raspberry Pi 3 B+** w/ MicroSD Card and a way to power the device (battery or AC wall adapter)
 * **[Intel Neural Compute Stick 2 (NCS2)](https://software.intel.com/en-us/neural-compute-stick/where-to-buy)**
 * **USB or Pi Camera** This project uses the [PS3 Eye Camera](https://en.wikipedia.org/wiki/PlayStation_Eye) which can be found on eBay for about $6 USD each.
 
-#### Optional Hardware
+### Optional Hardware
 **Disclaimer:** Feel free to swap out any of these parts, but be aware that this guide may not help you with those components you've swapped.
 * **Development PC (Linux, Windows, MacOS)** Development for this project was performed on a Windows 10 platform.
 * **Display Monitor w/ HDMI Output** Helpful for debugging and testing within Raspberry Pi environment.
@@ -68,25 +65,43 @@ While some of the hardware in this section is described as 'Required' or 'Option
 * **Assorted Electrical Components (switches, buttons, wires, breadboards, etc)** Check out [Adafruit](https://www.adafruit.com/) for great deals on electrical components.
 
 ## Software List
-#### Dev PC
+The following list can be determined on your own by following the [OpenVINO Toolkit documentation](https://docs.openvinotoolkit.org/).
+### Dev PC
 **Please visit the following link: [OpenVINO Windows Toolkit](https://software.intel.com/en-us/openvino-toolkit/choose-download) for installing OpenVINO on your platform.** The following bullet points reflect the requirements based on a Windows 10 environment.
 * Python 3.6.5 with Python Libraries, 64-bit
 * Microsoft Visual Studio with C++ 2019, 2017, or 2015 with MSBuild
 * CMake 3.4+
 * OpenCV 3.4+
 * OpenVINO 2019.R1+
-* TensorFlow (installed via pip)
+* TensorFlow
+```powershell
+pip install tensorflow
+```
 
-#### Raspberry Pi
+### Raspberry Pi
 **Please visit the following link: [OpenVINO Toolkit for Raspberry Pi](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) for installing OpenVINO on your Raspberry Pi.**
 * Python 3.5+ (included with Raspberian Stretch OS)
 * OpenVINO 2019.R1+
 * Python Libraries (non-standard):
   * OpenCV 4.1+ (included with OpenVINO Toolkit)
-  * ServoKit TODO: Get version and pip name
-  * Pysabertooth TODO: Get version and pip name
-  * pykeyboard (not required, but useful for hardware testing) TODO: Get version and pip name 
-
+  * [Adafruit ServoKit](https://circuitpython.readthedocs.io/projects/servokit/en/latest/)
+  
+  ```console
+  $ pip3 install adafruit-circuitpython-servokit
+  ```
+  
+  * [pysabertooth](https://github.com/MomsFriendlyRobotCompany/pysabertooth)
+  
+  ```console
+  $ pip3 install pysabertooth
+  ```
+  
+  * [pynput](https://pypi.org/project/pynput/) (for hardware testing and manual control)
+  
+  ```console
+  $ pip3 install pynput
+  ```
+ 
 ## Hardware Configuration
 The wiring diagrams contained within this section were created with [Fritzing](http://fritzing.org/home/), a fantastic open-source tool.
 
@@ -356,7 +371,7 @@ During the lifecycle of your robot project, it's a good idea to develop and main
 
 ## Deploy the Robot
 
-## Feedback Statement
+## Feedback
 I tried my best to detail all of the processes I used to get this project off the ground, but I may have missed some key steps along the way or you may have experienced some frustrations trying to follow along. With that being said, please don't hesitate to drop me any comments, questions or concerns. I promise to do my best to address your issues.
 
 ## References and Acknowledgements
