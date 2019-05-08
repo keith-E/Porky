@@ -79,7 +79,7 @@ if __name__ == '__main__':
     
     parser.add_argument('-cm', '--camerastate', dest='camera_state', type=int, default=1, 
                         help='Camera state: enabled or disabled. (0 - Disabled, 1 - Enabled, Default - 1)')
-    parser.add_argument('pt', '--pantiltstate', dest='pan_tilt_state', type=int, default=1, 
+    parser.add_argument('-pt', '--pantiltstate', dest='pan_tilt_state', type=int, default=1, 
                         help='Pan and Tilt state: enabled or disabled. (0 - Disabled, 1 - Enabled, Default - 1)')
     parser.add_argument('-mt', '--motorstate', dest='motor_state', type=int, default=1,
                         help='Motor state: enabled or disabled. (0 - Disabled, 1 - Enabled, Default - 1)')
