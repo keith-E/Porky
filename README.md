@@ -134,7 +134,19 @@ This setup consists of:
 * **Female DC Power Adapter - 2.1mm Jack** [Adafruit Link](https://www.adafruit.com/product/368). To connect Power Supply to PWM/Servo Controller.
 * **USB Adapters** TODO: add link. To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
 
-TODO: Add fritzing diagram and picture of 'live' environment.
+Robot top plate partially off to display the motor controller and Li-Po battery inside:
+
+![Robot-top Partially Open](./docs/images/robot_top_halfway_open_378x284.jpg)
+
+Top-view of the robot in the testing/tweaking setup:
+
+![Robot Top View](./docs/images/robot_top_view_test_and_tweak_setup_378x284.jpg)
+
+Robot on top of books in the testing/tweaking setup to restrict base movement:
+
+![Robot On Books](./docs/images/robot_with_books_379x283.jpg)
+
+**Note: wire diagrams will be added in the future.**
 
 #### Live Deployment Setup
 After performing adequate hardware and software tests, you'll be ready to release your autonomous robot without its leash. This section will show you how to configure your robot to be deployed live.
