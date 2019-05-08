@@ -200,6 +200,10 @@ Wire connection from PWM/Servo Controller to Raspberry Pi:
 
 ![PWM to RPi](./docs/images/pwm_to_raspberry_pi_378x283.jpg)
 
+TODO: add picture of sabertooth DIP switch settings
+
+TODO: add picture of sabertooth connection to raspberry pi
+
 **Note: wire diagrams will be added in the future.**
 
 ### :rocket: Live Deployment Setup
@@ -395,6 +399,28 @@ During the lifecycle of your robot project, it's a good idea to develop and main
 
 ### Hardware Specific Tests
 ###### Test the Camera
+To test if the camera is powering on correctly:
+  1. Ensure USB cable is properly connected to the Raspberry Pi.
+  2. Provide power to the Raspberry Pi.
+  3. Wait a couple seconds.
+  4. The blue LED on the right of the camera (facing the lens/microphone array) should light up.
+  5. Type the following command within your Raspberry Pi terminal:
+  ```console
+  pi@raspberrypi:~$ lsusb
+  ```
+  6. You should see a USB device listing similar to the following if you're using a PS3 Eye Camera:
+  ```console
+  Bus 001 Device 006: ID 1415:2000 Nam Tai E&E Products Ltd. or OmniVision Technologies, Inc. Sony Playstation Eye
+  ```
+To test if the camera is providing good feedback:
+  1. Navigate to the Porky/tests/ directory.
+  2. Ensure the USB camera is connected.
+  3. Run the following script:
+  ```console
+  pi@raspberrypi:~/Porky/tests $ python3 camera_test.py
+  ```
+  4. A window should eventually pop up if you're accessing the Raspberry Pi's display.
+  5. Press the 'q' key on your keyboard to quit the script.
 ###### Test the Motors
 ###### Test the Servos
 
