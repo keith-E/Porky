@@ -435,6 +435,7 @@ To test if the camera is providing good feedback:
 
 ## Deploy Porky
 Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup)) and ensure the following if you've built something similar:
+- [x] All bolted connections are properly tightened.
 - [x] The Raspberry Pi is powered on via the portable powerbank.
 - [x] The PWM/Servo Controller is powered on via the 4xAA Battery Holder.
 - [x] The Motorcontroller is switch is turned on and powered via the Li-Po battery.
