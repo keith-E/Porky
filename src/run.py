@@ -13,6 +13,7 @@ def main(cam_state, pt_state, mot_state):
     processes = []
     cam = Camera()
     det = Detect(myriad=True)
+    # Pan and Tilt Servo angles are determined by the HS-422 Servos and Adafruit ServoKit library used for this project.
     start_pan_angle = 100
     start_tilt_angle = 140
     serv = Servos(start_pan_angle, start_tilt_angle)
@@ -20,11 +21,15 @@ def main(cam_state, pt_state, mot_state):
 
     try:
         with Manager() as manager:
+            # Initialize the multiprocessing queue buffers. Setting a maxsize of 1 for the detection, area, and center buffers
+            # currently results in optimal performance as there is some latency due to the Raspberry Pi environment.
             cam_buffer = Queue(10)
             detection_buffer = Queue(maxsize=1)
             area_buffer = Queue(maxsize=1)
             center_buffer = Queue(maxsize=1)
-
+            
+            # Initialize the multiprocessing manager values for the pan and tilt process to provide input to the pan/tilt and motor
+            # processes.
             pan = manager.Value("i", start_pan_angle)
             tilt = manager.Value("i", start_tilt_angle)
             
@@ -57,7 +62,7 @@ def main(cam_state, pt_state, mot_state):
         for p in range(len(processes)):
             processes[p].terminate()
 
-        # Ensure the motors are stopped.
+        # Ensure the motors are stopped before exiting.
         saber = Sabertooth('/dev/ttyS0')
         saber.stop()
 
