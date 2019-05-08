@@ -11,13 +11,10 @@ from detection import Detect
 
 def main(cam_state, pt_state, mot_state):
     processes = []
-    cam = Camera()
-    det = Detect(myriad=True)
+  
     # Pan and Tilt Servo angles are determined by the HS-422 Servos and Adafruit ServoKit library used for this project.
     start_pan_angle = 100
     start_tilt_angle = 140
-    serv = Servos(start_pan_angle, start_tilt_angle)
-    mot = Motors()
 
     try:
         with Manager() as manager:
@@ -34,6 +31,8 @@ def main(cam_state, pt_state, mot_state):
             tilt = manager.Value("i", start_tilt_angle)
             
             if cam_state == 1:
+                cam = Camera()
+                det = Detect(myriad=True)
                 camera_process = Process(target=cam.start,
                                          args=(cam_buffer, detection_buffer, center_buffer, area_buffer), daemon=True)
                 camera_process.start()
@@ -44,14 +43,16 @@ def main(cam_state, pt_state, mot_state):
                 processes.append(detection_process)
             
             if pt_state == 1:
-                pan_tilt_process = Process(target=serv.follow, args=(center_buffer, pan, tilt), daemon=True)
+                servo = Servos(start_pan_angle, start_tilt_angle)
+                pan_tilt_process = Process(target=servo.follow, args=(center_buffer, pan, tilt), daemon=True)
                 pan_tilt_process.start()
                 processes.append(pan_tilt_process)
             
             if mot_state == 1:
-                follow_process = Process(target=mot.follow, args=(area_buffer, pan), daemon=True)
-                follow_process.start()
-                processes.append(follow_process)
+                mot = Motors()
+                motor_process = Process(target=mot.follow, args=(area_buffer, pan), daemon=True)
+                motor_process.start()
+                processes.append(motor_process)
 
             for process in processes:
                 process.join()
