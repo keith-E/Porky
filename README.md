@@ -1,5 +1,5 @@
 # Porky: The Real-Time Object Detecting Robot
-The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own Machine Learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
+The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own machine learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
 
 ![Follow the Piggy](./docs/images/porky_follow.gif)
 ![Find the Piggy](./docs/images/piggy_detection.gif)
@@ -8,37 +8,50 @@ The goal of this project is to demonstrate how to create a real-time object dete
 ## Table of Contents
 1. [Update History](#update-history)
 2. [Project Overview](#project-overview)
-3. [Hardware List](#hardware-list)
+3. [Reading This Guide](#reading-this-guide)
+4. [Hardware List](#hardware-list)
     * [Required Hardware](#required-hardware)
     * [Optional Hardware](#optional-hardware)
-4. [Software List](#software-list)
+5. [Software List](#software-list)
     * [Dev PC](#dev-pc)
     * [Raspberry Pi](#raspberry-pi)
-5. [Hardware Configuration](#hardware-configuration)
+6. [Hardware Configuration](#hardware-configuration)
     * [Image Capturing Setup](#image-capturing-setup)
     * [Tweak and Test Setup](#tweak-and-test-setup)
     * [Live Deployment Setup](#live-deployment-setup)
-6. [Train Object Detection Model with TensorFlow](#train-object-detection-model-with-tensorflow)
-7. [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
+7. [Train Object Detection Model with TensorFlow](#train-object-detection-model-with-tensorflow)
+8. [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
     * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
-8. [Deploy the Optimized Model](#deploy-the-optimized-model)
+9. [Deploy the Optimized Model](#deploy-the-optimized-model)
     * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
     * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
     * [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
-9. [Testing](#testing)
-10. [Deploy the Robot](#deploy-the-robot)
-11. [Feedback](#feedback)
-12. [References and Acknowledgements](#references-and-acknowledgements)
+10. [Testing](#testing)
+11. [Deploy the Robot](#deploy-the-robot)
+12. [Feedback](#feedback)
+13. [References and Acknowledgements](#references-and-acknowledgements)
 
 ## Update History
 **2019/05/09:** Initial Release
 
 ## Project Overview
-This guide will teach you how to: 
-* Train your own model in TensorFlow using a Transfer Learning technique to save time and money 
-* Optimize the resulting TensorFlow model to be utilized with Intel's Inference Engine
-* Implement the optimized model into a Python script
+This project will guide you on how to: 
+* Train your own model in TensorFlow using a transfer learning technique to save time and money 
+* Optimize the resulting TensorFlow model so that it can be used with Intel's Inference Engine/Neural Compute Stick
+* Implement the optimized model into a OpenCV/Python program
 * Deploy the program with real-time performance and feedback loops
+
+## Reading this Guide
+The goal of this guide is to provide as many steps as possible in order to create an alike robot as this project's. However, not everyone will have an identical development environment as I do/did (a Dockerfile will be provided in the future to help alleviate this issue). This can be due to different hardware and/or software configurations.
+
+As a result, please regard the following tips:
+  * Refer to the links provided inline and the [References and Acknowledgements](#references-and-acknowledgements) for further explanations and examples.
+  * When prompted with code/terminal examples that contain expressions that start with 'Path' and finish in [camel case](https://en.wikipedia.org/wiki/Camel_case) format, it's expected that you replace this expression with your own path.
+  For example **PathToYourImageDirectory** and **PathToYourPictureLabel**:
+  ```console
+  pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathToYourImageDirectory -picture_label=PathToYourPictureLabel
+  ```
+  * Notice how the first section of the terminal example above provides the user information within the terminal: pi@raspberrypi:~$. This section is provided as only an example, your actual environment will probably differ.
 
 ## Hardware List
 While some of the hardware in this section is described as 'Required' or 'Optional', this is only if you want to follow this guide step-by-step. This does not mean you are restricted to these components if you want to swap, subtract, or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a Machine Learning model and perform Real-Time Object Detection. My personal favorite sites for finding components for robotic projects are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), and [eBay](https://www.ebay.com/) (useful for scoring great deals on used parts). The possibilities are endless!
@@ -87,19 +100,19 @@ pip install tensorflow
   * [Adafruit ServoKit](https://circuitpython.readthedocs.io/projects/servokit/en/latest/)
   
   ```console
-  $ pip3 install adafruit-circuitpython-servokit
+  pi@raspberrypi:~$ pip3 install adafruit-circuitpython-servokit
   ```
   
   * [pysabertooth](https://github.com/MomsFriendlyRobotCompany/pysabertooth)
   
   ```console
-  $ pip3 install pysabertooth
+  pi@raspberrypi:~$ pip3 install pysabertooth
   ```
   
   * [pynput](https://pypi.org/project/pynput/) (for hardware testing and manual control)
   
   ```console
-  $ pip3 install pynput
+  pi@raspberrypi:~$ pip3 install pynput
   ```
  
 ## Hardware Configuration
@@ -210,11 +223,7 @@ pi@raspberrypi:~$ cd ./Porky/utils
 
 2. Run the image capturing Python script:
 ```console
-pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/YourImageDirectory -picture_label=YourPictureLabel
-```
-This project used the following execution arguments:
-```console
-pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/home/pi/Desktop/piggy-images -picture_label=piggy
+pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathYourImageDirectory -picture_label=PathYourPictureLabel
 ```
 
 3. Capture images by pointing the camera at a subject and pressing the mini-button (which is connected to the breadboard) to take the picture. The pictures will be saved within the directory that was specified and will automatically increment the image label based on the number of images already contained within the folder.
