@@ -39,7 +39,7 @@ The goal of this project is to demonstrate how to create a real-time object dete
      * [Hardware Specific Tests](#hardware-specific-tests)
      * [Unit Tests](#unit-tests)
      * [Integration Tests](#integration-tests)
-11. [Deploy the Robot](#deploy-the-robot)
+11. [:shipit:Deploy the Robot](#shipit-deploy-the-robot)
 12. [Feedback](#feedback)
 13. [References and Acknowledgements](#references-and-acknowledgements)
 
@@ -394,7 +394,7 @@ During the lifecycle of your robot project, it's a good idea to develop and main
 ###### Test Detection with Pan and Tilt
 ###### Test Detection with Pan and Follow
 
-## Deploy the Robot
+## :shipit: Deploy the Robot
 Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup) if you're using an alike robot) and issue the following command via a terminal:
 ```console
 pi@raspberrypi:~$ cd ~/Porky/src/
