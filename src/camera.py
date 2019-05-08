@@ -22,7 +22,7 @@ class Camera:
                 out = detection_buffer.get()
 
             if out is not None:
-                process_detection(frame, out)
+                frame = process_detection(frame, out)
 
             cv.imshow('frame', frame)
             if cv.waitKey(1) & 0xFF == ord('q'):
@@ -52,6 +52,8 @@ class Camera:
                 center_buffer.put(center)
                 detection_details = [xy_min, xy_max, center, confidence]
                 frame = image_overlay(frame, detection_details)
+         
+        return frame
 
 
 def image_overlay(image, details):
