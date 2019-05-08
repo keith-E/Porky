@@ -33,6 +33,7 @@ def main(cam_state, pt_state, mot_state):
             if cam_state == 1:
                 cam = Camera()
                 det = Detect(myriad=True)
+                
                 camera_process = Process(target=cam.start,
                                          args=(cam_buffer, detection_buffer, center_buffer, area_buffer), daemon=True)
                 camera_process.start()
@@ -44,12 +45,14 @@ def main(cam_state, pt_state, mot_state):
             
             if pt_state == 1:
                 servo = Servos(start_pan_angle, start_tilt_angle)
+                
                 pan_tilt_process = Process(target=servo.follow, args=(center_buffer, pan, tilt), daemon=True)
                 pan_tilt_process.start()
                 processes.append(pan_tilt_process)
             
             if mot_state == 1:
                 mot = Motors()
+                
                 motor_process = Process(target=mot.follow, args=(area_buffer, pan), daemon=True)
                 motor_process.start()
                 processes.append(motor_process)
