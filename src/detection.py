@@ -8,7 +8,9 @@ class Detect:
             self._start_myriad()
 
     def _start_myriad(self):
+        # Read in the Intermediate Representation files.
         self.net = cv.dnn.readNet('frozen_inference_graph.xml', 'frozen_inference_graph.bin')
+        # Set the inference device to Myriad/NCS2
         self.net.setPreferableTarget(cv.dnn.DNN_TARGET_MYRIAD)
 
     def start(self, cam_buffer, detection_buffer):
