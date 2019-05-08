@@ -1,4 +1,4 @@
-# Porky: The Real-Time Object Detecting Robot
+# :pig: Porky: The Real-Time Object Detecting Robot
 The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own machine learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
 
 ![Follow the Piggy](./docs/images/porky_follow.gif)
@@ -54,7 +54,7 @@ As a result, please regard the following tips:
   * Notice how the first section of the terminal example above provides the user information within the terminal: pi@raspberrypi:~$. This section is provided as only an example, your actual environment will probably differ.
 
 ## Hardware List
-While some of the hardware in this section is described as 'Required' or 'Optional', this is only if you want to follow this guide step-by-step. This does not mean you are restricted to these components if you want to swap, subtract, or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a Machine Learning model and perform Real-Time Object Detection. My personal favorite sites for finding components for robotic projects are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), and [eBay](https://www.ebay.com/) (useful for scoring great deals on used parts). The possibilities are endless!
+While some of the hardware in this section is described as 'Required' or 'Optional', this is only if you want to follow this guide step-by-step. This does not mean you are restricted to these components. Feel free to swap, subtract, and/or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a customized machine learning model and perform real-time object detection with just a Raspberry Pi and the Intel Neural Compute Stick 2. My personal favorite sites for finding robotic components are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), [eBay](https://www.ebay.com/), and [Amazon](https://www.amazon.com/). The possibilities are endless!
 
 ### Required Hardware
 * **Raspberry Pi 3 B+** w/ MicroSD Card and a way to power the device (battery or AC wall adapter)
@@ -80,7 +80,9 @@ While some of the hardware in this section is described as 'Required' or 'Option
 ## Software List
 The following list can be determined on your own by following the [OpenVINO Toolkit documentation](https://docs.openvinotoolkit.org/).
 ### Dev PC
-**Please visit the following link: [OpenVINO Windows Toolkit](https://software.intel.com/en-us/openvino-toolkit/choose-download) for installing OpenVINO on your platform.** The following bullet points reflect the requirements based on a Windows 10 environment.
+**Please visit the following link: [OpenVINO Windows Toolkit](https://software.intel.com/en-us/openvino-toolkit/choose-download) for installing OpenVINO on your platform.** 
+
+The following bullet points reflect the requirements based on a Windows 10 environment:
 * Python 3.6.5 with Python Libraries, 64-bit
 * Microsoft Visual Studio with C++ 2019, 2017, or 2015 with MSBuild
 * CMake 3.4+
@@ -93,6 +95,8 @@ pip install tensorflow
 
 ### Raspberry Pi
 **Please visit the following link: [OpenVINO Toolkit for Raspberry Pi](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) for installing OpenVINO on your Raspberry Pi.**
+
+The following bullet points reflect the basic requirements to
 * Python 3.5+ (included with Raspberian Stretch OS)
 * OpenVINO 2019.R1+
 * Python Libraries (non-standard):
@@ -118,7 +122,7 @@ pip install tensorflow
 ## Hardware Configuration
 The wiring diagrams contained within this section were created with [Fritzing](http://fritzing.org/home/), a fantastic open-source tool.
 
-#### Image Capturing Setup
+### Image Capturing Setup
 To train your own Machine Learning model, you will need to gather the data to train and validate/test your model on. The idea for this project was to train the model based on images captured with an identical camera that was eventually going to be deployed live.
 
 This setup consists of:
@@ -141,7 +145,7 @@ Image of the configured setup:
 
 Please see the [Capture Images with the Image Capturing Setup](#capture-images-with-the-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
 
-#### Tweak and Test Setup
+### Tweak and Test Setup
 This hardware configuration serves the purpose for testing your hardware components (motors, servos, etc) and software integrations (debugging, testing, sandbox). This setup is geared towards using AC wall adapters to save batteries and keeping moving components as stationary as possible. Having a proper testing setup can potentially save lots of frustration and money. It is strongly suggested to test your own project before deploying it into the wild.
 
 This setup consists of:
@@ -176,7 +180,7 @@ Robot on top of books in the testing/tweaking setup to restrict base movement:
 
 **Note: wire diagrams will be added in the future.**
 
-#### Live Deployment Setup
+### Live Deployment Setup
 After performing adequate hardware and software tests, you'll be ready to release your autonomous robot without its leash. This section will show you how to configure your robot to be deployed live.
 
 This setup consists of:
@@ -197,7 +201,9 @@ This setup consists of:
 * **4 x AA Batteries**
 * **USB Adapters** TODO: add link. To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
 
-TODO: Add fritzing diagram and picture of 'live' environment.
+TODO: Add pictures of 'live' environmen..
+
+**Note: wire diagrams will be added in the future.**
 
 ## Train Object Detection Model with TensorFlow
 The goal of this section is to use TensorFlow to train your custom model using [transfer learning](https://en.wikipedia.org/wiki/Transfer_learning). While creating your own Machine Learning model from the ground up can be extremely rewarding, that process typically involves much more configuration, troubleshooting, and training/validating time... which can be a costly process. However, with transfer tearning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
