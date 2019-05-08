@@ -18,15 +18,15 @@ def main(cam_state, pt_state, mot_state):
 
     try:
         with Manager() as manager:
-            # Initialize the multiprocessing queue buffers. Setting a maxsize of 1 for the detection, area, and center buffers
-            # currently results in optimal performance as there is some latency due to the Raspberry Pi environment.
-            cam_buffer = Queue(10)
+            # Initialize the multiprocessing queue buffers. Setting a maxsize of 1 for the buffers currently results in
+            # optimal performance as there is some latency due to the Raspberry Pi environment.
+            cam_buffer = Queue(maxsize=1)
             detection_buffer = Queue(maxsize=1)
             area_buffer = Queue(maxsize=1)
             center_buffer = Queue(maxsize=1)
             
-            # Initialize the multiprocessing manager values for the pan and tilt process to provide input to the pan/tilt and motor
-            # processes.
+            # Initialize the multiprocessing manager values for the pan and tilt process to provide input to the
+            # pan/tilt and motor processes.
             pan = manager.Value("i", start_pan_angle)
             tilt = manager.Value("i", start_tilt_angle)
             

@@ -16,8 +16,7 @@ class Camera:
         while True:
             ret, frame = self.cap.read()
 
-            # Put frames in the camera buffer.
-            # TODO: see if the empty check is removable
+            # Put frames in the camera buffer if the Myriad detector has already pulled it.
             if cam_buffer.empty():
                 cam_buffer.put(frame)
 
