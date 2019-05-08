@@ -375,7 +375,7 @@ pi@raspberrypi:~$ git clone https://github.com/keith-E/Porky.git
 ```
 
 ### Replace IR Model within Cloned Repository
-If you've trained your own machine learning model, replace the **frozen_inference_graph.bin** and **frozen_inference_graph.xml** files within the src directory with your own. If you didn't train your own model, you can utilize the provided model... but be aware that the provided model was trained on a stuffed piggy :pig2: and may not give you the best results. 
+If you've trained your own machine learning model, replace the **frozen_inference_graph.bin** and **frozen_inference_graph.xml** files within the src directory with your own. If you didn't train your own model, you can utilize the provided model... but be aware that the provided model was trained on a [stuffed piggy :pig2:](https://www.amazon.com/Douglas-Cuddle-Toys-1902-Betina/dp/B00BOWLXZE/ref=sr_1_fkmrnull_1?keywords=douglas+cuddle+pink+pig&qid=1557335985&s=gateway&sr=8-1-fkmrnull) and may not give you the best results. 
 
 ## Testing
 During the lifecycle of your robot project, it's a good idea to develop and maintain some sort of testing strategy. This section demonstrates how to use the provided testing scripts and their purpose.
