@@ -62,6 +62,7 @@ def main(cam_state, pt_state, mot_state):
 
     except:
         print("Unexpected error: ", sys.exc_info()[0])
+        
     finally:
         for p in range(len(processes)):
             processes[p].terminate()
