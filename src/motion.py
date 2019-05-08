@@ -90,6 +90,7 @@ class Motors:
         while True:
             # If the area buffer is empty, skip over the code and start at the beginning to check again.
             if area_buffer.empty():
+                self.saber.stop()
                 continue
 
             area = area_buffer.get()

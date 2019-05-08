@@ -5,6 +5,7 @@ TODO: pictures and gif of robot in action - robot following pig, robot and pig p
 
 ![Follow the Piggy](./docs/images/porky_follow.gif)
 ![Robot and Porky](./docs/images/piggy_and_robot_352x266.jpg)
+![Find the Piggy](./docs/images/piggy_detection.gif)
 
 ## Table of Contents
 * [Project Overview](#project-overview)
