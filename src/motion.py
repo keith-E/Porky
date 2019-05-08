@@ -74,7 +74,7 @@ class Motors:
                   pan: a multiprocessing integer value for the pan angle managed by the multiprocessing manager'''
     def follow(self, area_buffer, pan):
         # Change this variable to increase the reverse speed while following, lower is faster (min = -100)
-        saber_rmin_speed = -25
+        saber_rmin_speed = -50
         # Change this variable to reduce the max forward speed, lower is slower (0 = stop)
         saber_fmax_speed = 100
 
@@ -85,7 +85,7 @@ class Motors:
 
         # Change this variable to adjust speed from the area given, if you're attempting to follow bigger objects in the
         # frame, set the value higher.
-        proportional_area = 256
+        proportional_area = 200
 
         while True:
             # If the area buffer is empty, skip over the code and start at the beginning to check again.

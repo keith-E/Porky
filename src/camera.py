@@ -1,6 +1,33 @@
 import cv2 as cv
 
 
+# TODO: create a frame detector class within the detect module to handle this method
+def process_detection(frame, out, center_buffer, area_buffer):
+    for detection in out.reshape(-1, 7):
+        confidence = float(detection[2])
+        xmin = int(detection[3] * frame.shape[1])
+        ymin = int(detection[4] * frame.shape[0])
+        xy_min = (xmin, ymin)
+        xmax = int(detection[5] * frame.shape[1])
+        ymax = int(detection[6] * frame.shape[0])
+        xy_max = (xmax, ymax)
+
+        xmid = (xmax + xmin) // 2
+        ymid = (ymax + ymin) // 2
+
+        if confidence > 0.5:
+            x = xmax - xmin
+            y = ymax - ymin
+            area = x * y
+            area_buffer.put(area)
+            center = (xmid, ymid)
+            center_buffer.put(center)
+            detection_details = [xy_min, xy_max, center, confidence]
+            frame = image_overlay(frame, detection_details)
+
+    return frame
+
+
 class Camera:
     def __init__(self, cam_width=320, cam_height=240):
         self.cap = cv.VideoCapture(0)
@@ -31,31 +58,6 @@ class Camera:
                 
         self.cap.release()
         cv.destroyAllWindows()
-    # TODO: create a frame detector class within the detect module to handle this method 
-    def process_detection(self, frame, out):
-        for detection in out.reshape(-1, 7):
-            confidence = float(detection[2])
-            xmin = int(detection[3] * frame.shape[1])
-            ymin = int(detection[4] * frame.shape[0])
-            xy_min = (xmin, ymin)
-            xmax = int(detection[5] * frame.shape[1])
-            ymax = int(detection[6] * frame.shape[0])
-            xy_max = (xmax, ymax)
-
-            xmid = (xmax + xmin) // 2
-            ymid = (ymax + ymin) // 2
-
-            if confidence > 0.5:
-                x = xmax - xmin
-                y = ymax - ymin
-                area = x * y
-                area_buffer.put(area)
-                center = (xmid, ymid)
-                center_buffer.put(center)
-                detection_details = [xy_min, xy_max, center, confidence]
-                frame = image_overlay(frame, detection_details)
-         
-        return frame
 
 
 def image_overlay(image, details):
