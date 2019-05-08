@@ -47,19 +47,20 @@ The goal of this guide is to provide as many steps as possible in order to creat
 As a result, please regard the following tips:
   * Refer to the links provided inline and the [References and Acknowledgements](#references-and-acknowledgements) for further explanations and examples.
   * When prompted with code/terminal examples that contain expressions that start with 'Path' and finish in [camel case](https://en.wikipedia.org/wiki/Camel_case) format, it's expected that you replace this expression with your own path.
+  
   For example **PathToYourImageDirectory** and **PathToYourPictureLabel**:
   ```console
   pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathToYourImageDirectory -picture_label=PathToYourPictureLabel
   ```
-  * Notice how the first section of the terminal example above provides the user information within the terminal: pi@raspberrypi:~$. This section is provided as only an example, your actual environment will probably differ.
+  * Notice how the first section of the terminal example above provides the user information within the terminal: pi@raspberrypi:~$. This section is provided only as an example, your actual environment will probably differ.
 
 ## Hardware List
-While some of the hardware in this section is described as 'Required' or 'Optional', this is only if you want to follow this guide step-by-step. This does not mean you are restricted to these components. Feel free to swap, subtract, and/or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a customized machine learning model and perform real-time object detection with just a Raspberry Pi and the Intel Neural Compute Stick 2. My personal favorite sites for finding robotic components are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), [eBay](https://www.ebay.com/), and [Amazon](https://www.amazon.com/). The possibilities are endless!
+Please take note of 'Optional Hardware' list, this is provided only if you want to create a robot that is identical to the one this project demonstrates. This does not mean you are restricted to these components. Feel free to swap, subtract, and/or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a customized machine learning model and perform real-time object detection with just a Raspberry Pi and the Intel Neural Compute Stick 2. My personal favorite sites for finding robotic components are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), [eBay](https://www.ebay.com/), and [Amazon](https://www.amazon.com/). The possibilities are endless! :thought_balloon: :sparkles:
 
 ### Required Hardware
-* **Raspberry Pi 3 B+** w/ MicroSD Card and a way to power the device (battery or AC wall adapter)
+* :computer: **Raspberry Pi 3 B+** w/ MicroSD Card and a way to power the device (battery or AC wall adapter)
 * **[Intel Neural Compute Stick 2 (NCS2)](https://software.intel.com/en-us/neural-compute-stick/where-to-buy)**
-* **USB or Pi Camera** This project uses the [PS3 Eye Camera](https://en.wikipedia.org/wiki/PlayStation_Eye) which can be found on eBay for about $6 USD each.
+* :video_camera: **USB or Pi Camera** This project uses the [PS3 Eye Camera](https://en.wikipedia.org/wiki/PlayStation_Eye) which can be found on eBay for about $6 USD each.
 
 ### Optional Hardware
 **Disclaimer:** Feel free to swap out any of these parts, but be aware that this guide may not help you with those components you've swapped.
