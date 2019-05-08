@@ -16,13 +16,21 @@ The goal of this project is to demonstrate how to create a real-time object dete
     * [Dev PC](#dev-pc)
     * [Raspberry Pi](#raspberry-pi)
 6. [Hardware Configuration](#hardware-configuration)
-    * [Image Capturing Setup](#-image-capturing-setup)
-    * [Tweak and Test Setup](#-tweak-and-test-setup)
-    * [Live Deployment Setup](#-live-deployment-setup)
+    * [:camera: Image Capturing Setup](#camera-image-capturing-setup)
+    * [:construction: Tweak and Test Setup](#construction-tweak-and-test-setup)
+    * [:rocket: Live Deployment Setup](#rocket-live-deployment-setup)
 7. [Train Object Detection Model with TensorFlow](#train-object-detection-model-with-tensorflow)
+    * [Create the Dataset](#create-the-dataset)
+    * [Install TensorFlow](#install-tensorflow)
+    * [Convert the Annotations to CSV](#convert-the-annotations-to-csv)
+    * [Create TFRecords from the Images and Annotations](#create-tfrecords-from-the-images-and-annotations)
+    * [Pick a Supported Object Detection Model](#pick-a-supported-object-detection-model)
+    * [Deploy the TensorFlow Training Session](#deploy-the-tensorflow-training-session)
 8. [Optimize Model for Intel Neural Compute Stick 2](#optimize-model-for-intel-neural-compute-stick-2)
+    * [Export TensorFlow Model Checkpoint into a Frozen Inference Graph](#export-tensorflow-model-checkpoint-into-a-frozen-inference-graph)
     * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
-9. [Deploy the Optimized Model](#deploy-the-optimized-model)
+    * [Convert the Frozen TensorFlow Graph to Optimized IR](#convert-the-frozen-tensorflow-graph-to-optimized-ir)
+9. [Deploy the Optimized IR Model](#deploy-the-optimized-ir-model)
     * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
     * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
     * [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
@@ -55,7 +63,7 @@ As a result, please regard the following tips:
   * Notice how the first section of the terminal example above provides the user information within the terminal: pi@raspberrypi:~$. This section is provided only as an example, your actual environment will probably differ.
 
 ## Hardware List
-Please take note of 'Optional Hardware' list, this is provided only if you want to create a robot that is identical to the one this project demonstrates. This does not mean you are restricted to these components. Feel free to swap, subtract, and/or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a customized machine learning model and perform real-time object detection with just a Raspberry Pi and the Intel Neural Compute Stick 2. My personal favorite sites for finding robotic components are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), [eBay](https://www.ebay.com/), and [Amazon](https://www.amazon.com/). The possibilities are endless! :thought_balloon: :sparkles:
+Please take note of 'Optional Hardware' list, this is provided only if you want to create a robot that is identical to the one this project demonstrates. This does not mean you are restricted to these components. Feel free to swap, subtract, and/or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a customized machine learning model and perform real-time object detection with just a Raspberry Pi and the Intel Neural Compute Stick 2. My personal favorite sites for finding robotic components are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), [eBay](https://www.ebay.com/), and [Amazon](https://www.amazon.com/). The possibilities are endless!
 
 ### Required Hardware
 * :computer: **Raspberry Pi 3 B+** w/ MicroSD Card and a way to power the device (battery or AC wall adapter)
@@ -191,25 +199,25 @@ This setup consists of:
 * **4 x AA Batteries**
 * **USB Adapters** TODO: add link. To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
 
-TODO: Add pictures of 'live' environment..
+TODO: Add pictures of 'live' environment.
 
 **Note: wire diagrams will be added in the future.**
 
 ## Train Object Detection Model with TensorFlow
-The goal of this section is to use TensorFlow to train your custom model using [transfer learning](https://en.wikipedia.org/wiki/Transfer_learning). While creating your own Machine Learning model from the ground up can be extremely rewarding, that process typically involves much more configuration, troubleshooting, and training/validating time... which can be a costly process. However, with transfer tearning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
+The goal of this section is to use TensorFlow to train your custom model using [transfer learning](https://en.wikipedia.org/wiki/Transfer_learning). While creating your own machine learning model from scratch can be extremely rewarding, that process typically involves much more configuration, troubleshooting, and training/validating time... which can be a costly process (1.5 hours with my training pipeline on Google Cloud Platform cost ~$11 USD). However, with transfer tearning, you can minimize all three fronts by choosing an already proven model to customize with your own dataset.
 
 The following guides were used as reference for the machine learning sections:
 * [TensorFlow Object Detector API Readme](https://github.com/tensorflow/models/tree/master/research/object_detection)
 * [How to train your own Object Detector with TensorFlow’s Object Detector API](https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9)
 * [Creating your own object detector](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85)
 
-Please read the above links to fill in missing gaps while this guide is updated and to get a deeper understanding of how to customize your dataset and use the TensorFlow framework for machine learning.
+Please read the above links to fill in missing gaps while this guide is updated and to get more examples of how you can use TensorFlow's Object Detection API.
 
-#### Create Your Dataset
+### Create the Dataset
 First, you'll want to create your own dataset. You can do this by utilizing popular [public datasets](https://towardsdatascience.com/the-50-best-public-datasets-for-machine-learning-d80e9f030279) or by creating your own. I chose to create my own dataset for this project in an attempt to create a more unique classification. This process basically follows two steps: gather your data into a collection (with proper filenames to help organization, ie: piggy-1.png, piggy-2.png, etc) and label/annotate your data (label the regions of interest, ie: drawing a rectangle on the object you're classifying in the image and label it appropriately).
 
 
-###### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
+#### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
 This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#image-capturing-setup) and find the image_capture.py script within the utils folder.
 
 1. Navigate to the utils directory:
@@ -226,7 +234,7 @@ pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathYourImageDir
 
 4. After you're satisfied with the amount of images you've taken, create two folders: /train and /test within your image directory and place about 80% of your total images within the /train directory and the remaining images within the /test directory. Click this [link](TODO: provide link) to find out why an 80/20 is a popular rule today for training and validating your datasets.
 
-###### Label the Captured Images with LabelIMG
+#### Label the Captured Images with LabelIMG
 This process consists of labelling/annotating your images in a format readable by TensorFlow (this project utilizes the Pascal VOS format).
 
 1. Install and launch LabelIMG. [Github Link](https://github.com/tzutalin/labelImg)
@@ -239,8 +247,8 @@ This process consists of labelling/annotating your images in a format readable b
 8. Repeat steps 4 through 7 until you've labelled all of the images within the directory.
 9. Repeat steps 2 through 8 for the 'test' portion of your dataset.
 
-#### Install the TensorFlow Framework onto Dev PC
-Once you've gathered and labelled your dataset, your now ready to work with TensorFlow.
+### Install TensorFlow
+Once you've gathered and labelled your dataset, install TensorFlow onto your dev PC (if you haven't already).
 
 From PowerShell (if developing from a Windows PC) install TensorFlow to your Python Environment (virtual preferred - will be updated in the future):
 ```powershell
@@ -254,7 +262,7 @@ PS C:\> git clone https://github.com/tensorflow/models.git
 ```
 The TensorFlow models repository will contain useful configuration scripts to configure your machine learning pipeline.
 
-#### Convert the XML Annotations to CSV
+### Convert the Annotations to CSV
 See [Dat Tran's repository](https://github.com/datitran/raccoon_dataset/) for the xml_to_csv.py script utilized for this step. The modified version of this script is contained within the src/utils/ directory of this project's repository. See [Gilbert Tanner's article](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85) on how those modifications came to be.
 
 After the modifications are made, use the following command:
@@ -264,7 +272,7 @@ PS C:\> py xml_to_csv.py
 
 This well create two CSV files: train_labels.csv and test_labels.csv.
 
-#### Convert the Images and Annotations into TFRecord Format
+### Create TFRecords from the Images and Annotations
 This step requires two things to be done: your captured images need to be seperated into a two directories (train and test) and you'll need two corresponding csv files that contain your labels/annotations in Pascal VOC format.
 
 First, modify the script, generate_tfrecord.py ([Dat Tran's repository](https://github.com/datitran/raccoon_dataset/)) to fit your labels. See the modified version of this script contained within the src/utils/ directory of this project's repository. After the script has been modified, run the following commands:
@@ -279,14 +287,14 @@ To convert your 'test' images and labels to TFRecord format:
 PS C:\> py generate_tfrecord.py --csv_input=PathToLabelsCSVFiles\test_labels.csv --image_dir=PathToImageDirectory\test --output_path=test.record
 ```
 
-#### Pick an Already Trained Model and Use Transfer Learning
+### Pick a Supported Object Detection Model
 To save some cost and time, you can pick out an already trained machine learning model to use for your customized dataset. The following two bullet points will help you in the process of choosing an appropriate model:
 * [TensorFlow Object Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
 * [List of Supported Models for the MYRIAD (NCS2) Plugin](https://docs.openvinotoolkit.org/latest/_docs_IE_DG_supported_plugins_MYRIAD.html)
 
 This project uses the [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz) model. It's not listed as an officially supported Myriad model (which I learned after the fact), but I was lucky in the case that it actually worked for my use case.
 
-#### Deploy the TensorFlow Training Session
+### Deploy the TensorFlow Training Session
 If you have access to a capable GPU, I suggest performing Machine Learning locally. However, if you're like me and don't have immediate access to a capable GPU, you can use a cloud compute service to perform your Machine Learning for you. For this project, I used the Google Cloud Platform to perform the TensorFlow training.
 
 ##### Using the Google Cloud Platform for Machine Learning
@@ -294,7 +302,7 @@ Please follow the following [link](https://github.com/tensorflow/models/blob/mas
 
 Another useful guide from TensorFlow: [Quick Start: Distributed Training on the Oxford-IIIT Pets Dataset on Google Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_pets.md) 
 
-#### Extract the Latest Checkpoints
+##### Extract the Latest Checkpoint
 Once you're satisified with accurracy of your machine learning session, you can kill the TensorFlow process and extract the latest checkpoints for your trained model. If you used the Google Cloud Platform, the checkpoint files will be contained within your storage bucket.
 
 [A checkpoint will typically consist of three files](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md):
@@ -309,9 +317,8 @@ Please read the following guides as a precursor to the next steps:
 * [TensorFlow Guide on Exporting Models](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md)
 * [OpenVINO Guide for Converting TensorFlow Models to Intermediate Representation]( https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html)
 
-#### Export TensorFlow Model Checkpoint(s) into a Frozen Inference Graph
-
-1. Copy the [latest checkpoints](#extract-the-latest-checkpoints) to the cloned TensorFlow models\research directory
+### Export TensorFlow Model Checkpoint into a Frozen Inference Graph
+1. Copy the [latest checkpoint](#extract-the-latest-checkpoint) to the cloned TensorFlow models\research directory
 2. Execute the following command within PowerShell:
 ```powershell
 PS C:\models\research> py .\object_detection\export_inference_graph.py `
@@ -322,10 +329,10 @@ PS C:\models\research> py .\object_detection\export_inference_graph.py `
 ```
 This command will output multiple files to your specified output directory, we will be using the frozen_inference_graph.pb file for our next step.
 
-#### Install OpenVINO on Dev PC
+### Install OpenVINO on Dev PC
 If you haven't done so already, [install OpenVINO](https://software.intel.com/en-us/openvino-toolkit/) on your Dev PC.
 
-#### Convert the Frozen TensorFlow Graph to Optimized IR
+### Convert the Frozen TensorFlow Graph to Optimized IR
 Navigate to the installed Intel OpenVINO directory and execute the following command within PowerShell:
 ```powershell
 PS C:\Intel\computer_vision_sdk_2018.5.456\deployment_tools\model_optimizer> py .\mo_tf.py `
@@ -334,11 +341,17 @@ PS C:\Intel\computer_vision_sdk_2018.5.456\deployment_tools\model_optimizer> py 
 >> --tensorflow_object_detection_api_pipeline_config C:\PathToYourPipelineConfigFile
 >> --data_type FP16
 ```
-Take note of the line: --data_type FP16, the Myriad VPU (Neural Compute Stick) only supports 16-bit precision. If the line is left out, the converted model will not work with your compute stick(s).
+Take note of the line: --data_type FP16, the Myriad VPU (Neural Compute Stick (2)) currently only supports 16-bit precision. If the line is left out, the converted model will not work with your compute stick(s).
 
-TODO: add outputted file names and descriptions
+Executing this script will output 3 files into the directory you ran the command from:
+  * frozen_inference_graph.bin (model weights)
+  * frozen_inference_graph.mapping
+  * frozen_inference_graph.xml (model configuration)
 
-## Deploy the Optimized Model
+We're primarily looking for the model weights (.bin) and config (.xml) files for deployment.
+
+## Deploy the Optimized IR Model
+Now that you have your IR Model, you can now deploy it into a script by using OpenCV and/or the OpenVINO SDK.
 
 #### Install Raspberian on Raspberry Pi
 If you're unfamiliar with the Raspberry Pi platform, follow [this official guide](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) to set your Pi up. Be sure to download Raspberian for your OS.
