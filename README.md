@@ -395,6 +395,16 @@ During the lifecycle of your robot project, it's a good idea to develop and main
 ###### Test Detection with Pan and Follow
 
 ## Deploy the Robot
+Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup) if you're using an alike robot) and issue the following command via a terminal:
+```console
+pi@raspberrypi:~$ cd ~/Porky/src/
+pi@raspberrypi:~$ python3 run.py
+```
+
+If your robot does not utilize a Pan and Servo Kit and/or Motors, you can run the program without those processes:
+```console
+pi@raspberrypi:~$ python3 run.py --pantiltstate 0 --motorstate 0
+```
 
 ## Feedback
 I tried my best to detail all of the processes I used to get this project off the ground, but I may have missed some key steps along the way or you may have experienced some frustrations trying to follow along. With that being said, please don't hesitate to drop me any comments, questions or concerns. I promise to do my best to address your issues.
