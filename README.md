@@ -39,9 +39,10 @@ The goal of this project is to demonstrate how to create a real-time object dete
      * [Hardware Specific Tests](#hardware-specific-tests)
      * [Unit Tests](#unit-tests)
      * [Integration Tests](#integration-tests)
-11. [:shipit:Deploy the Robot](#shipit-deploy-the-robot)
-12. [Feedback](#feedback)
-13. [References and Acknowledgements](#references-and-acknowledgements)
+11. [Deploy Porky](#deploy-porky)
+12. [Observations](#observations)
+13. [Feedback](#feedback)
+14. [References and Acknowledgements](#references-and-acknowledgements)
 
 ## Update History
 **2019/05/09:** Initial Release
@@ -140,11 +141,11 @@ To train your own machine learning model, you will need to gather the data to tr
 
 This setup consists of:
 * **Raspberry Pi 3 B+** w/ MicroSD Card
-* **PS3 Eye USB Camera** TODO: provide a link to ebay search
+* **PS3 Eye USB Camera** [eBay Search: ps3 eye camera](https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1311.R1.TR5.TRC1.A0.H0.Xps3+eye.TRS0&_nkw=ps3+eye+camera&_sacat=0)
 * **Portable Powerbank** [RAVPower Portable Charger](https://www.amazon.com/Portable-RAVPower-26800mAh-Double-Speed-Recharging/dp/B07793KSV4/ref=sr_1_3?keywords=ravpower+usb+c+portable+charger&qid=1556890740&s=industrial&sr=1-3-catcorr)
 * **Mini Button** [Tactile Button Switches from Adafruit](https://www.adafruit.com/product/367)
 * **Breadboard** [Tiny Breadboard from Adafruit](https://www.adafruit.com/product/65)
-* **USB C to MicroUSB Cable** To power the Raspberry Pi with the Powerbank. 
+* **USB C to MicroUSB Cable** [Amazon Link](https://www.amazon.com/gp/product/B0744BKDRD/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1) To connect the Raspberry Pi to the Powerbank. 
 * **2 Female/Male Wires** [Female/Male 'Extension' Wires from Adafruit](https://www.adafruit.com/product/1954)
 
 Wire Diagram of the Button setup for the Raspberry Pi:
@@ -156,7 +157,7 @@ Image of the configured setup:
 
 ![Imgur](https://i.imgur.com/sHKt3Yb.jpg)
 
-Please see the [Capture Images with the Image Capturing Setup](#capture-images-with-the-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
+Please see the [Capture Images with the Image Capturing Setup](#camera-image-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
 
 ### :construction: Tweak and Test Setup
 This hardware configuration serves the purpose for testing your hardware components (motors, servos, etc) and software integrations (debugging, testing, sandbox). This setup is geared towards using AC wall adapters to save batteries and keeping moving components as stationary as possible. Having a proper testing setup can potentially save lots of frustration and money. It is strongly suggested to test your own project before deploying it into the wild.
@@ -164,7 +165,7 @@ This hardware configuration serves the purpose for testing your hardware compone
 This setup consists of:
 * **Raspberry Pi 3 B+** w/ MicroSD Card
 * **[Intel Neural Compute Stick 2 (NCS2)](https://software.intel.com/en-us/neural-compute-stick/where-to-buy)**
-* **PS3 Eye USB Camera** TODO: provide a link to ebay search Outer case has been removed to save weight and help with mounting.
+* **PS3 Eye USB Camera** [eBay Search: ps3 eye camera](https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1311.R1.TR5.TRC1.A0.H0.Xps3+eye.TRS0&_nkw=ps3+eye+camera&_sacat=0) Outer case has been removed to save weight and help with mounting.
 * **Display Monitor w/ HDMI Output** Helpful for debugging and testing within Raspberry Pi environment.
 * **HDMI Cable**
 * **Robot Chassis Kit w/ Motors** This project uses the [Lynxmotion 4WD1 Rover Kit](http://www.lynxmotion.com/c-111-a4wd1-no-electronics.aspx). You can purchase this kit directly from [RobotShop](https://www.robotshop.com) or find a used kit on eBay.
@@ -191,19 +192,29 @@ Robot on top of books in the testing/tweaking setup to restrict base movement:
 
 ![Robot On Books](./docs/images/robot_with_books_379x283.jpg)
 
+Wire connection to PWM/Servo Controller:
+
+![PWM Wire Connection](./docs/images/pwm_wire_connection_378x283.jpg)
+
+Wire connection from PWM/Servo Controller to Raspberry Pi:
+
+![PWM to RPi](./docs/images/pwm_to_raspberry_pi_378x283.jpg)
+
 **Note: wire diagrams will be added in the future.**
 
 ### :rocket: Live Deployment Setup
 After performing adequate hardware and software tests, you'll be ready to release your autonomous robot without its leash. This section will show you how to configure your robot to be deployed live.
 
 This setup consists of:
-* See [Tweak and Test Setup](#tweak-and-test-setup) for bulk of components (minus the wall power supplies and adapters).
+* See [Tweak and Test Setup](#construction-tweak-and-test-setup) for bulk of components (minus the wall power supplies and adapters).
 * **Portable Powerbank** Be aware that not all portable chargers are compatible for Raspberry Pi projects. This project uses this [RAVPower Portable Charger](https://www.amazon.com/Portable-RAVPower-26800mAh-Double-Speed-Recharging/dp/B07793KSV4/ref=sr_1_3?keywords=ravpower+usb+c+portable+charger&qid=1556890740&s=industrial&sr=1-3-catcorr).
 * **4 x AA Battery Holder /w On/Off Switch** [Adafruit Link](https://www.adafruit.com/product/830). To power the PWM/Servo Controller.
 * **4 x AA Batteries**
-* **USB Adapters** TODO: add link. To mount the NCS2 sticks onto the Raspberry Pi. Process used: rotated the adapters into desired position and used hot glue to secure the positioning.
+* **USB C to MicroUSB Cable** [Amazon Link](https://www.amazon.com/gp/product/B0744BKDRD/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1) To connect the Raspberry Pi to the Powerbank. 
 
-TODO: Add pictures of 'live' environment.
+Pretty much the [tweak and test setup](#construction-tweak-and-test-setup), but without the wall supplies/adapters and additional portable power supplies:
+
+![Porky without Wires](./docs/images/porky_no_walls_attached_378x283.jpg)
 
 **Note: wire diagrams will be added in the future.**
 
@@ -221,8 +232,8 @@ Please read the above links to fill in missing gaps while this guide is updated 
 First, you'll want to create your own dataset. You can do this by utilizing popular [public datasets](https://towardsdatascience.com/the-50-best-public-datasets-for-machine-learning-d80e9f030279) or by creating your own. I chose to create my own dataset for this project in an attempt to create a more unique classification. This process basically follows two steps: gather your data into a collection (with proper filenames to help organization, ie: piggy-1.png, piggy-2.png, etc) and label/annotate your data (label the regions of interest, ie: drawing a rectangle on the object you're classifying in the image and label it appropriately).
 
 
-#### Capture Images with the [Image Capturing Setup](#image-capturing-setup)
-This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#image-capturing-setup) and find the image_capture.py script within the utils folder.
+#### Capture Images with the [Image Capturing Setup](#camera-image-capturing-setup)
+This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#camera-image-capturing-setup) and find the image_capture.py script within the utils folder.
 
 1. Navigate to the utils directory:
 ```console
@@ -394,7 +405,7 @@ During the lifecycle of your robot project, it's a good idea to develop and main
 ###### Test Detection with Pan and Tilt
 ###### Test Detection with Pan and Follow
 
-## :shipit: Deploy the Robot
+## Deploy Porky
 Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup) if you're using an alike robot) and issue the following command via a terminal:
 ```console
 pi@raspberrypi:~$ cd ~/Porky/src/
@@ -405,6 +416,16 @@ If your robot does not utilize a Pan and Servo Kit and/or Motors, you can run th
 ```console
 pi@raspberrypi:~$ python3 run.py --pantiltstate 0 --motorstate 0
 ```
+![Porky Deployed](./docs/images/piggy_follow_landscape_natural-light.gif)
+
+## Observations
+* Development
+  * The most complex process was the machine learning portion by far.
+  * Frustration was mostly observed while attempting to configure and train a model on TensorFlow and the Google Cloud Platform. This is most likely due to the guides I followed being outdated and using Linux as their platform.
+* Performance
+  * The object detection for the first iteration of the piggy model is not as accurate and performant as I would prefer. This is most likely due to the lack of diversity within the dataset. I'll need to be more observant about gathering/capturing more lighting situations and overall environments in the future.
+  * The piggy detection model works best where more natural light is present.
+  * The object detection in the current iteration is very rebound-y and which causes the motors (and therefore the whole bot) to become very jittery.
 
 ## Feedback
 I tried my best to detail all of the processes I used to get this project off the ground, but I may have missed some key steps along the way or you may have experienced some frustrations trying to follow along. With that being said, please don't hesitate to drop me any comments, questions or concerns. I promise to do my best to address your issues.
