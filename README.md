@@ -434,15 +434,20 @@ To test if the camera is providing good feedback:
 ###### Test Detection with Pan and Follow
 
 ## Deploy Porky
-Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup) if you're using an alike robot) and issue the following command via a terminal:
+Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup)) and ensure the following if you've built something similar:
+- [x] The Raspberry Pi is powered on via the portable powerbank.
+- [x] The PWM/Servo Controller is powered on via the 4xAA Battery Holder.
+- [x] The Motorcontroller is switch is turned on and powered via the Li-Po battery.
+
+If you've built an alike robot, issue the following command via a terminal:
 ```console
 pi@raspberrypi:~$ cd ~/Porky/src/
-pi@raspberrypi:~$ python3 run.py
+pi@raspberrypi:~/Porky/src $ python3 run.py
 ```
 
 If your robot does not utilize a Pan and Servo Kit and/or Motors, you can run the program without those processes:
 ```console
-pi@raspberrypi:~$ python3 run.py --pantiltstate 0 --motorstate 0
+pi@raspberrypi:~/Porky/src $ python3 run.py --pantiltstate 0 --motorstate 0
 ```
 ![Porky Deployed](./docs/images/piggy_follow_landscape_natural-light.gif)
 
