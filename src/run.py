@@ -3,9 +3,9 @@ import sys
 from multiprocessing import Process, Queue, Manager
 from pysabertooth import Sabertooth
 
-from .camera import Camera
-from .motion import Servos, Motors
-from .detection import Detect
+from camera import Camera
+from motion import Servos, Motors
+from detection import Detect
 
 
 def main():

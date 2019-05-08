@@ -44,12 +44,6 @@ class Camera:
                         detection_details = [xy_min, xy_max, center, confidence]
                         frame = image_overlay(frame, detection_details)
 
-                if area is None:
-                    saber.stop()
-
-                center = None
-                area = None
-
             cv.imshow('frame', frame)
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break

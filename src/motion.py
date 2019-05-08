@@ -2,8 +2,8 @@ from adafruit_servokit import ServoKit
 from pysabertooth import Sabertooth
 
 
-def constrain(value, min_value, max_value):
-    return min(max_value, max(min_value, value))
+def constrain(val, min_val, max_val):
+    return min(max_val, max(min_val, val))
 
 
 class Servos:
@@ -66,9 +66,6 @@ class Motors:
         self.saber = Sabertooth('/dev/ttyS0')
         # Stop the motors just in case a previous run as resulted in an infinite loop.
         self.saber.stop()
-        # Max forward and reverse speed. The motors stop when the speed is set to 0.
-        self.saber_max_speed = 100
-        self.saber_min_speed = 100
 
     '''This method moves the base of the rover by controlling the left and right motors via the Sabertooth
        motor controller. 
@@ -77,7 +74,9 @@ class Motors:
                   pan: a multiprocessing integer value for the pan angle managed by the multiprocessing manager'''
     def follow(self, area_buffer, pan):
         # Change this variable to increase the reverse speed while following, lower is faster (min = -100)
-        saber_reverse = -25
+        saber_rmin_speed = -25
+        # Change this variable to reduce the max forward speed, lower is slower (0 = stop)
+        saber_fmax_speed = 100
 
         # Change this variable for more or less aggression while turning (the lower the value, the more aggressive the
         # turns). This should be determined while tuning to your environment. Weight of the rover, floor type, and wheel
@@ -102,14 +101,14 @@ class Motors:
             # The forward speed is determined by the area of the object passed in via the area_buffer. This equation
             # results in faster speeds as the area gets smaller and slower speeds as the area gets bigger (eventually
             # reversing if the area is too large).
-            forward_speed = constrain(100 - (area // proportional_area), saber_reverse, self.saber_max_speed)
+            forward_speed = constrain(100 - (area // proportional_area), saber_rmin_speed, saber_fmax_speed)
 
             # This equations sets the speed differential based on how far the object/pan angle is from the original
             # center location.
             differential = (follow_error + (follow_error * forward_speed)) / turn_aggression
 
-            left_speed = constrain(forward_speed - differential, self.saber_min_speed, self.saber_max_speed)
-            right_speed = constrain(forward_speed + differential, self.saber_min_speed, self.saber_max_speed)
+            left_speed = constrain(forward_speed - differential, saber_rmin_speed, saber_fmax_speed)
+            right_speed = constrain(forward_speed + differential, saber_rmin_speed, saber_fmax_speed)
 
             print("area: {} follow_error: {} forward speed: {} differential: {} left_speed: {} right_speed: {}"
                   .format(area,
