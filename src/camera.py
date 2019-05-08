@@ -31,7 +31,7 @@ class Camera:
                 
         self.cap.release()
         cv.destroyAllWindows()
-        
+    # TODO: create a frame detector class within the detect module to handle this method 
     def process_detection(self, frame, out):
         for detection in out.reshape(-1, 7):
             confidence = float(detection[2])
