@@ -126,12 +126,6 @@ The following bullet points reflect the basic requirements to
   ```console
   pi@raspberrypi:~$ pip3 install pysabertooth
   ```
-  
-  * [pynput](https://pypi.org/project/pynput/) (for hardware testing and manual control)
-  
-  ```console
-  pi@raspberrypi:~$ pip3 install pynput
-  ```
  
 ## Hardware Configuration
 The wiring diagrams contained within this section were created with [Fritzing](http://fritzing.org/home/), a great open-source tool.
