@@ -106,6 +106,18 @@ The following bullet points reflect the requirements based on a Windows 10 envir
 ```powershell
 PS C:\> pip install tensorflow
 ```
+* Glob for Python 3
+```powershell
+PS C:\> pip install glob3
+```
+* Pandas
+```powershell
+PS C:\> pip install pandas
+```
+* Pillow
+```powershell
+PS C:\> pip install Pillow
+```
 
 ### Raspberry Pi
 **Please visit the following link: [OpenVINO Toolkit for Raspberry Pi](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) for installing OpenVINO on your Raspberry Pi.**
