@@ -19,10 +19,10 @@ class Camera:
             # Put frames in the camera buffer if the Myriad detector has already pulled it.
             if cam_buffer.empty():
                 cam_buffer.put(frame)
-
+            # Pull from the detection_buffer
             if not detection_buffer.empty():
                 out = detection_buffer.get()
-
+            # Classify the frame with the pulled detection
             if out is not None:
                 frame = self.classifier.process_detection(frame, out, center_buffer, area_buffer)
 

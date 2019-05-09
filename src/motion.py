@@ -17,12 +17,9 @@ class Servos:
         self.pan_servo.angle = self.pan_angle
         self.tilt_servo.angle = self.tilt_angle
 
-    '''This method uses a primitive algorithm to point the camera at a an object within the frame.
-            center_buffer: a multiprocessing queue that holds the center point of an object within a camera frame
-            
-            pan: a multiprocessing integer value that holds the location of the Pan Servo's angle
-            tilt: a multiprocessing integer value that holds the location of the Tilt Servo's angle'''
+    # TODO: rewrite this method with a more efficient PD algorithm (see: PID control feedback loop)
     def follow(self, center_buffer, pan, tilt):
+
         # Adjust this variable to find the sweet spot for updating the pan and tilt values to follow an object with the
         # servos. Beware that setting this value too high may result in a rebound/bouncing effect from the Servos
         # attempting to 'catch up'.
@@ -32,10 +29,11 @@ class Servos:
 
             if center_buffer.empty():
                 continue
-
+            # Get the center of the detected object
             center = center_buffer.get()
             x, y = center[0], center[1]
-
+            # Based off the object's center point in the frame, increment/decrement the servo angles by the set amount
+            # to get closer to the object's center
             if x < 120:
                 self.pan_angle -= angle_increment
                 if self.pan_angle < 10:
@@ -68,11 +66,6 @@ class Motors:
         # Stop the motors just in case a previous run as resulted in an infinite loop.
         self.saber.stop()
 
-    '''This method moves the base of the rover by controlling the left and right motors via the Sabertooth
-       motor controller. 
-       
-                  area_buffer: a multiprocessing queue that contains areas of a given detected object
-                  pan: a multiprocessing integer value for the pan angle managed by the multiprocessing manager'''
     def follow(self, area_buffer, pan):
         # Change this variable to increase the reverse speed while following, lower is faster (min = -100)
         saber_rmin_speed = -50

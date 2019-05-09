@@ -1,0 +1,8 @@
+numpy
+pysabertooth
+pandas
+tensorflow
+adafruit-circuitpython-servokit
+opencv-python
+Pillow
+glob3
