@@ -1,3 +1,5 @@
+# https://github.com/datitran/raccoon_dataset
+
 """
 Usage:
   # From tensorflow/ir_models/
