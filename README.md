@@ -30,7 +30,7 @@ The goal of this project is to demonstrate how to create a real-time object dete
     * [Export TensorFlow Model Checkpoint into a Frozen Inference Graph](#export-tensorflow-model-checkpoint-into-a-frozen-inference-graph)
     * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
     * [Convert the Frozen TensorFlow Graph to Optimized IR](#convert-the-frozen-tensorflow-graph-to-optimized-ir)
-9. [Deploy the Optimized IR Model](#deploy-the-optimized-ir-model)
+9. [Integrate the Optimized IR Model](#integrate-the-optimized-ir-model)
     * [Install Raspbian on Raspberry Pi](#install-raspbian-on-raspberry-pi)
     * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
     * [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
@@ -63,7 +63,7 @@ As a result, please regard the following tips:
   
   For example **PathToYourImageDirectory** and **PathToYourPictureLabel** are intended to be changed to reflect your working environment:
   ```console
-  pi@raspberrypi:~/Porky/src/utils $ python3 image_capture.py -picture_directory=~/PathToYourImageDirectory -picture_label=PathToYourPictureLabel
+  pi@raspberrypi:~/Porky/dataset $ python3 image_capture.py -picture_directory=~/PathToYourImageDirectory -picture_label=PathToYourPictureLabel
   ```
   * Notice how the first section of the terminal example above provides the user information within the terminal: pi@raspberrypi:~$. This section is provided only as an example, your actual environment will probably differ.
 
@@ -234,16 +234,16 @@ First, you'll want to create your own dataset. You can do this by utilizing popu
 
 
 #### Capture Images with the [Image Capturing Setup](#camera-image-capturing-setup)
-This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#camera-image-capturing-setup) and find the image_capture.py script within the utils folder.
+This step isn't absolutely necessary to follow verbatim, you can also use images from a public dataset like [ImageNet](http://www.image-net.org/). Configure the hardware as described within the [Image Capturing Setup](#camera-image-capturing-setup) and find the image_capture.py script within the dataset folder.
 
-1. Navigate to the utils directory:
+1. Navigate to the dataset directory:
 ```console
-pi@raspberrypi:~$ cd ./Porky/src/utils
+pi@raspberrypi:~$ cd ./Porky/dataset
 ```
 
 2. Run the image capturing Python script:
 ```console
-pi@raspberrypi:~/Porky/src/utils $ python3 image_capture.py -picture_directory=~/PathYourImageDirectory -picture_label=PathYourPictureLabel
+pi@raspberrypi:~/Porky/dataset $ python3 image_capture.py -picture_directory=~/PathYourImageDirectory -picture_label=PathYourPictureLabel
 ```
 
 3. Capture images by pointing the camera at a subject and pressing the mini-button (which is connected to the breadboard) to take the picture. The pictures will be saved within the directory that was specified and will automatically increment the image label based on the number of images already contained within the folder.
@@ -279,11 +279,11 @@ PS C:\> git clone https://github.com/tensorflow/models.git
 The TensorFlow models repository will contain useful configuration scripts to configure your machine learning pipeline.
 
 ### Convert the Annotations to CSV
-See [Dat Tran's repository](https://github.com/datitran/raccoon_dataset/) for the xml_to_csv.py script utilized for this step. The modified version of this script is contained within the src/utils/ directory of this project's repository. See [Gilbert Tanner's article](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85) on how those modifications came to be.
+See [Dat Tran's repository](https://github.com/datitran/raccoon_dataset/) for the xml_to_csv.py script utilized for this step. The modified version of this script is contained within the dataset directory of this project's repository. See [Gilbert Tanner's article](https://towardsdatascience.com/creating-your-own-object-detector-ad69dda69c85) on how those modifications came to be.
 
 After the modifications are made, use the following command:
 ```powershell
-PS C:\> py xml_to_csv.py
+PS C:\Porky\dataset> py xml_to_csv.py
 ```
 
 This well create two CSV files: train_labels.csv and test_labels.csv.
@@ -291,16 +291,16 @@ This well create two CSV files: train_labels.csv and test_labels.csv.
 ### Create TFRecords from the Images and Annotations
 This step requires two things to be done: your captured images need to be seperated into a two directories (train and test) and you'll need two corresponding csv files that contain your labels/annotations in Pascal VOC format.
 
-First, modify the script, generate_tfrecord.py ([Dat Tran's repository](https://github.com/datitran/raccoon_dataset/)) to fit your labels. See the modified version of this script contained within the src/utils/ directory of this project's repository. After the script has been modified, run the following commands:
+First, modify the script, generate_tfrecord.py ([Dat Tran's repository](https://github.com/datitran/raccoon_dataset/)) to fit your labels. See the modified version of this script contained within the dataset directory of this project's repository. After the script has been modified, run the following commands:
 
 To convert your 'train' images and labels to TFRecord format:
 ```powershell
-PS C:\> py generate_tfrecord.py --csv_input=PathToLabelsCSVFile\train_labels.csv --image_dir=PathToImageDirectory\train --output_path=train.record
+PS C:\Porky\dataset> py generate_tfrecord.py --csv_input=PathToLabelsCSVFile\train_labels.csv --image_dir=PathToImageDirectory\train --output_path=train.record
 ```
 
 To convert your 'test' images and labels to TFRecord format:
 ```powershell
-PS C:\> py generate_tfrecord.py --csv_input=PathToLabelsCSVFiles\test_labels.csv --image_dir=PathToImageDirectory\test --output_path=test.record
+PS C:\Porky\dataset> py generate_tfrecord.py --csv_input=PathToLabelsCSVFiles\test_labels.csv --image_dir=PathToImageDirectory\test --output_path=test.record
 ```
 
 ### Pick a Supported Object Detection Model
@@ -308,7 +308,7 @@ To save some cost and time, you can pick out an already trained machine learning
 * [TensorFlow Object Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
 * [List of Supported Models for the MYRIAD (NCS2) Plugin](https://docs.openvinotoolkit.org/latest/_docs_IE_DG_supported_plugins_MYRIAD.html)
 
-This project uses the [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz) model. It's not listed as an officially supported Myriad model (which I learned after the fact), but I was lucky in the case that it actually worked for my use case.
+This project uses the [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz) model. It's not listed as an officially supported Myriad model (which I learned after the fact), but I was lucky in the case that it actually worked with the Myriad plugin.
 
 ### Deploy the TensorFlow Training Session
 If you have access to a capable GPU, I suggest performing Machine Learning locally. However, if you're like me and don't have immediate access to a capable GPU, you can use a cloud compute service to perform your Machine Learning for you. For this project, I used the Google Cloud Platform to perform the TensorFlow training.
@@ -319,7 +319,7 @@ Please follow the following [link](https://github.com/tensorflow/models/blob/mas
 Another useful guide from TensorFlow: [Quick Start: Distributed Training on the Oxford-IIIT Pets Dataset on Google Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_pets.md) 
 
 ##### Extract the Latest Checkpoint
-Once you're satisfied with accurracy of your machine learning session, you can kill the TensorFlow process and extract the latest checkpoints for your trained model. If you used the Google Cloud Platform, the checkpoint files will be contained within your storage bucket.
+Once you're satisfied with accuracy of your machine learning session, you can kill the TensorFlow process and extract the latest checkpoints for your trained model. If you used the Google Cloud Platform, the checkpoint files will be contained within your storage bucket.
 
 [A checkpoint will typically consist of three files](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md):
 * model.ckpt-${CHECKPOINT_NUMBER}.data-00000-of-00001
@@ -366,7 +366,7 @@ Executing this script will output 3 files into the directory you ran the command
 
 We're primarily looking for the model weights (.bin) and config (.xml) files for deployment.
 
-## Deploy the Optimized IR Model
+## Integrate the Optimized IR Model
 Now that you have your IR Model, you can now deploy it into a script by using OpenCV and/or the OpenVINO SDK.
 
 ### Install Raspbian on Raspberry Pi
