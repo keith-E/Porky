@@ -39,7 +39,7 @@ The goal of this project is to demonstrate how to create a real-time object dete
      * [Hardware Specific Tests](#hardware-specific-tests)
      * [Unit Tests](#unit-tests)
      * [Integration Tests](#integration-tests)
-11. [Deploy Porky](#deploy-porky)
+11. [:pig: Deploy Porky](#pig-deploy-porky)
 12. [Observations](#observations)
 13. [Feedback](#feedback)
 14. [References and Acknowledgements](#references-and-acknowledgements)
@@ -440,7 +440,7 @@ To test the motors:
   pi@raspberrypi:~/Porky/tests $ python3 motor_test.py
   ```
   5. The terminal will display the test status.
-  6. While the test is running, observe the motors and ensure they are moving to the appropriate positions.
+  6. While the test is running, observe the motors and ensure they are moving in the correct directions.
 
 ### Unit Tests
 ###### Test the ML Model
@@ -451,7 +451,7 @@ To test the motors:
 ###### Test Detection with Pan and Tilt
 ###### Test Detection with Pan and Follow
 
-## Deploy Porky
+## :pig: Deploy Porky
 Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup)) and ensure the following if you've built something similar:
 - [x] All bolted connections are properly tightened.
 - [x] The Raspberry Pi is powered on via the portable powerbank.
