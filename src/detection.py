@@ -51,9 +51,11 @@ class Classify:
                 x = xmax - xmin
                 y = ymax - ymin
                 area = x * y
-                area_buffer.put(area)
+                if area_buffer.empty():
+                    area_buffer.put(area)
                 center = (xmid, ymid)
-                center_buffer.put(center)
+                if center_buffer.empty():
+                    center_buffer.put(center)
                 detection_details = [xy_min, xy_max, center, confidence]
                 # TODO: look into throwing the image_overlay process to the camera module
                 frame = self._image_overlay(frame, detection_details)
