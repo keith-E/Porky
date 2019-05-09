@@ -31,7 +31,7 @@ The goal of this project is to demonstrate how to create a real-time object dete
     * [Install OpenVINO on Dev PC](#install-openvino-on-dev-pc)
     * [Convert the Frozen TensorFlow Graph to Optimized IR](#convert-the-frozen-tensorflow-graph-to-optimized-ir)
 9. [Deploy the Optimized IR Model](#deploy-the-optimized-ir-model)
-    * [Install Raspberian on Raspberry Pi](#install-raspberian-on-raspberry-pi)
+    * [Install Raspbian on Raspberry Pi](#install-raspbian-on-raspberry-pi)
     * [Install OpenVINO on Raspberry Pi](#install-openvino-on-raspberry-pi)
     * [Clone this Repository to the Raspberry Pi](#clone-this-repository-to-the-raspberry-pi)
     * [Replace IR Model within Cloned Repository](#replace-ir-model-within-cloned-repository)
@@ -325,7 +325,7 @@ Please follow the following [link](https://github.com/tensorflow/models/blob/mas
 Another useful guide from TensorFlow: [Quick Start: Distributed Training on the Oxford-IIIT Pets Dataset on Google Cloud](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_pets.md) 
 
 ##### Extract the Latest Checkpoint
-Once you're satisified with accurracy of your machine learning session, you can kill the TensorFlow process and extract the latest checkpoints for your trained model. If you used the Google Cloud Platform, the checkpoint files will be contained within your storage bucket.
+Once you're satisfied with accurracy of your machine learning session, you can kill the TensorFlow process and extract the latest checkpoints for your trained model. If you used the Google Cloud Platform, the checkpoint files will be contained within your storage bucket.
 
 [A checkpoint will typically consist of three files](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md):
 * model.ckpt-${CHECKPOINT_NUMBER}.data-00000-of-00001
@@ -375,7 +375,7 @@ We're primarily looking for the model weights (.bin) and config (.xml) files for
 ## Deploy the Optimized IR Model
 Now that you have your IR Model, you can now deploy it into a script by using OpenCV and/or the OpenVINO SDK.
 
-### Install Raspberian on Raspberry Pi
+### Install Raspbian on Raspberry Pi
 If you're unfamiliar with the Raspberry Pi platform, follow [this official guide](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) to set your Pi up. Be sure to download Raspberian for your OS.
 
 ### Install OpenVINO on Raspberry Pi
@@ -416,16 +416,37 @@ To test if the camera is powering on correctly:
   Bus 001 Device 006: ID 1415:2000 Nam Tai E&E Products Ltd. or OmniVision Technologies, Inc. Sony Playstation Eye
   ```
 To test if the camera is providing good feedback:
-  1. Navigate to the Porky/tests/ directory.
-  2. Ensure the USB camera is connected.
+  1. Ensure the USB camera is connected.
+  2. Navigate to the Porky/tests/ directory.
   3. Run the following script:
   ```console
   pi@raspberrypi:~/Porky/tests $ python3 camera_test.py
   ```
   4. A window should eventually pop up if you're accessing the Raspberry Pi's display.
   5. Press the 'q' key on your keyboard to quit the script.
-###### Test the Motors
+
 ###### Test the Servos
+To test the servos:
+  1. Ensure the PWM/Servo Controller is connected to the Raspberry Pi properly and external (battery or wall) is being delivered to the controller.
+  2. Navigate to the Porky/tests/ directory.
+  3. Run the following script:
+  ```console
+  pi@raspberrypi:~/Porky/tests $ python3 pan_and_tilt_test.py
+  ```
+  4. The terminal will display the test status.
+  5. While the test is running, observe the servos and ensure they are moving to the appropriate positions.
+  
+###### Test the Motors
+To test the motors:
+  1. Ensure all of the connections are properly wired.
+  2. Ensure the power switch is turned in the 'on' position and the Sabertooth motor-controller LEDs are lit up.
+  3. Navigate to the Porky/tests/ directory.
+  4. Run the following script:
+  ```console
+  pi@raspberrypi:~/Porky/tests $ python3 motor_test.py
+  ```
+  5. The terminal will display the test status.
+  6. While the test is running, observe the motors and ensure they are moving to the appropriate positions.
 
 ### Unit Tests
 ###### Test the ML Model
@@ -443,7 +464,7 @@ Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup
 - [x] The PWM/Servo Controller is powered on via the 4xAA Battery Holder.
 - [x] The Motor-controller is switch is turned on and powered via the Li-Po battery.
 
-If you've built an alike robot, issue the following command via a terminal:
+If you've built an identical robot, issue the following command via a terminal:
 ```console
 pi@raspberrypi:~$ cd ~/Porky/src/
 pi@raspberrypi:~/Porky/src $ python3 run.py
@@ -468,7 +489,7 @@ pi@raspberrypi:~/Porky/src $ python3 run.py --pantiltstate 0 --motorstate 0
 I tried my best to detail all of the processes I used to get this project off the ground, but I may have missed some key steps along the way or you may have experienced some frustrations trying to follow along. With that being said, please don't hesitate to drop me any comments, questions or concerns. I promise to do my best to address your issues.
 
 ## References and Acknowledgements
-**Professor Becker and CS390** For guiding and permitting this project class project.
+**Professor Becker and CS390** For guiding and permitting this class project.
 
 **[leswright1977/Rpi3_NCS2](https://github.com/leswright1977/RPi3_NCS2):** leswright1977's bottle-chasing robot introduced me to the Intel NCS2 and its ability to integrate machine learning models for real-time applications.
 

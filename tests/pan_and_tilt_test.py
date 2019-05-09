@@ -14,3 +14,7 @@ for x in range(10, 171):
     tilt_servo.angle = x
     print('Servos are at: {} degrees'.format(x))
     time.sleep(0.2)
+
+pan_servo.angle = 100
+tilt_servo.angle = 100
+print('Pan and Tilt Servos test has completed.')
