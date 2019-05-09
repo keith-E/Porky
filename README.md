@@ -1,5 +1,5 @@
 # :pig: Porky: The Real-Time Object Detecting Robot
-The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own machine learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jumpstart your next real-time object detection project! 
+The goal of this project is to demonstrate how to create a real-time object detection autonomous robot with relatively inexpensive components. By training your own machine learning model and pairing Intel's Neural Compute Stick 2 with a Raspberry Pi 3 B+, you'll be able jump-start your next real-time object detection project! 
 
 ![Follow the Piggy](./docs/images/porky_follow.gif)
 ![Find the Piggy](./docs/images/piggy_detection.gif)
@@ -51,11 +51,11 @@ The goal of this project is to demonstrate how to create a real-time object dete
 This project will guide you on how to: 
 * Train your own model in TensorFlow using a transfer learning technique to save time and money 
 * Optimize the resulting TensorFlow model so that it can be used with Intel's Inference Engine/Neural Compute Stick
-* Implement the optimized model into a OpenCV/Python program
+* Implement the optimized Intermediate Representation model into a OpenCV/Python program
 * Deploy the program with real-time performance and feedback loops
 
 ## Reading this Guide
-The goal of this guide is to provide as many steps as possible in order to create an alike robot as this project's. However, not everyone will have an identical development environment as I do/did (a Dockerfile will be provided in the future to help alleviate this issue). This can be due to different hardware and/or software configurations.
+The goal of this guide is to provide as many steps as possible in order to create an identical robot project. However, not everyone will have an identical development environment as I do/did (a Dockerfile will be provided in the future to help alleviate this issue) nor will they have identical hardware components.
 
 As a result, please regard the following tips:
   * Refer to the links provided inline and the [References and Acknowledgements](#references-and-acknowledgements) for further explanations and examples.
@@ -63,22 +63,22 @@ As a result, please regard the following tips:
   
   For example **PathToYourImageDirectory** and **PathToYourPictureLabel** are intended to be changed to reflect your working environment:
   ```console
-  pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathToYourImageDirectory -picture_label=PathToYourPictureLabel
+  pi@raspberrypi:~/Porky/src/utils $ python3 image_capture.py -picture_directory=~/PathToYourImageDirectory -picture_label=PathToYourPictureLabel
   ```
   * Notice how the first section of the terminal example above provides the user information within the terminal: pi@raspberrypi:~$. This section is provided only as an example, your actual environment will probably differ.
 
 ## Hardware List
-Please take note of 'Optional Hardware' list, this is provided only if you want to create a robot that is identical to the one this project demonstrates. This does not mean you are restricted to these components. Feel free to swap, subtract, and/or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a customized machine learning model and perform real-time object detection with just a Raspberry Pi and the Intel Neural Compute Stick 2. My personal favorite sites for finding robotic components are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), [eBay](https://www.ebay.com/), and [Amazon](https://www.amazon.com/). The possibilities are endless!
+Please take note of the 'Optional Hardware' list, this is provided only if you want to create a robot that is identical to the one this project demonstrates. This does not mean you are restricted to these components. Feel free to swap, subtract, and/or add components. However, for the best initial results (if your intention is to follow this guide), I highly suggest acquiring the components within the 'Required Hardware' section at the very least. This will enable you to train a customized machine learning model and perform real-time object detection with just a Raspberry Pi and the Intel Neural Compute Stick 2. My personal favorite sites for finding robotic components are [Adafruit](https://www.adafruit.com/), [RobotShop](https://www.robotshop.com/), [eBay](https://www.ebay.com/), and [Amazon](https://www.amazon.com/). The possibilities are endless!
 
 ### Required Hardware
 * :computer: **Raspberry Pi 3 B+** w/ MicroSD Card and a way to power the device (battery or AC wall adapter)
 * **[Intel Neural Compute Stick 2 (NCS2)](https://software.intel.com/en-us/neural-compute-stick/where-to-buy)**
-* :video_camera: **USB or Pi Camera** This project uses the [PS3 Eye Camera](https://en.wikipedia.org/wiki/PlayStation_Eye) which can be found on eBay for about $6 USD each.
+* :video_camera: **USB or Pi Camera** This project uses the [PS3 Eye Camera](https://en.wikipedia.org/wiki/PlayStation_Eye) which can be found on [eBay](https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1311.R1.TR5.TRC1.A0.H0.Xps3+eye.TRS0&_nkw=ps3+eye+camera&_sacat=0) for about $6 USD each.
 
 ### Optional Hardware
 **Disclaimer:** Feel free to swap out any of these parts.
-* **Development PC (Linux, Windows, MacOS)** Development for this project was performed on a Windows 10 platform which this guide reflects. While it's recommended to utilize a dev PC (and to not develop directly on the Raspberry Pi) for sake of speed, it's not necessary. I also recommend utilizing Linux (Ubuntu 16.04) as much of the machine learning documentation out there is geared towards Linux. Future updates for this project will be performed within the Linux environment.
-* **Display Monitor w/ HDMI Output** Helpful for debugging and testing within Raspberry Pi environment.
+* **Development PC (Linux, Windows, MacOS)** Development for this project was performed on a Windows 10 platform which this guide reflects. While it's recommended to utilize a dev PC (and to not develop directly on the Raspberry Pi) for sake of speed, it's not necessary. I also recommend utilizing Linux (Ubuntu 16.04) because much of the machine learning documentation out there is geared towards Linux. Future updates for this project will be performed within the Linux environment to save some frustrations while trying to follow along with documentation.
+* **Display Monitor w/ HDMI Output and cable** Helpful for debugging and testing within Raspberry Pi environment.
 * **Robot Chassis Kit w/ Motors** This project uses the [Lynxmotion 4WD1 Rover Kit](http://www.lynxmotion.com/c-111-a4wd1-no-electronics.aspx). You can purchase this kit directly from [RobotShop](https://www.robotshop.com) or find a used kit on eBay.
 * **Servos x2 w/ Mounting Hardware** This project uses the [Lynxmotion Pan and Tilt Kit](https://www.robotshop.com/en/lynxmotion-pan-and-tilt-kit-aluminium2.html).
 * **PWM/Servo Controller** This project uses this [one](https://www.amazon.com/Channel-Driver-interface-PCA9685-arduino-Raspberry/dp/B01D9VNXEQ/ref=sr_1_fkmrnull_1?keywords=ficbox+pwm%2Fservo&qid=1556889116&s=gateway&sr=8-1-fkmrnull) from Amazon.
@@ -111,7 +111,7 @@ PS C:\> pip install tensorflow
 **Please visit the following link: [OpenVINO Toolkit for Raspberry Pi](https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html) for installing OpenVINO on your Raspberry Pi.**
 
 The following bullet points reflect the basic requirements to
-* Python 3.5+ (included with Raspberian Stretch OS)
+* Python 3.5+ (included with Raspbian Stretch OS)
 * OpenVINO 2019.R1+
 * Python Libraries (non-standard):
   * OpenCV 4.1+ (included with OpenVINO Toolkit)
@@ -157,7 +157,7 @@ Image of the configured setup:
 
 ![Imgur](https://i.imgur.com/sHKt3Yb.jpg)
 
-Please see the [Capture Images with the Image Capturing Setup](#camera-image-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
+Please see the [Capture Images with the Image Capturing Setup](#capture-images-with-the-image-capturing-setupcamera-image-capturing-setup) section to capture your own images for your dataset using this hardware configuration.
 
 ### :construction: Tweak and Test Setup
 This hardware configuration serves the purpose for testing your hardware components (motors, servos, etc) and software integrations (debugging, testing, sandbox). This setup is geared towards using AC wall adapters to save batteries and keeping moving components as stationary as possible. Having a proper testing setup can potentially save lots of frustration and money. It is strongly suggested to test your own project before deploying it into the wild.
@@ -166,8 +166,7 @@ This setup consists of:
 * **Raspberry Pi 3 B+** w/ MicroSD Card
 * **[Intel Neural Compute Stick 2 (NCS2)](https://software.intel.com/en-us/neural-compute-stick/where-to-buy)**
 * **PS3 Eye USB Camera** [eBay Search: ps3 eye camera](https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1311.R1.TR5.TRC1.A0.H0.Xps3+eye.TRS0&_nkw=ps3+eye+camera&_sacat=0) Outer case has been removed to save weight and help with mounting.
-* **Display Monitor w/ HDMI Output** Helpful for debugging and testing within Raspberry Pi environment.
-* **HDMI Cable**
+* **Display Monitor w/ HDMI Output and Cable** Helpful for debugging and testing within Raspberry Pi environment.
 * **Robot Chassis Kit w/ Motors** This project uses the [Lynxmotion 4WD1 Rover Kit](http://www.lynxmotion.com/c-111-a4wd1-no-electronics.aspx). You can purchase this kit directly from [RobotShop](https://www.robotshop.com) or find a used kit on eBay.
 * **Servos x2 w/ Mounting Hardware** This project uses the [Lynxmotion Pan and Tilt Kit](https://www.robotshop.com/en/lynxmotion-pan-and-tilt-kit-aluminium2.html).
 * **PWM/Servo Controller** This project uses this [one](https://www.amazon.com/Channel-Driver-interface-PCA9685-arduino-Raspberry/dp/B01D9VNXEQ/ref=sr_1_fkmrnull_1?keywords=ficbox+pwm%2Fservo&qid=1556889116&s=gateway&sr=8-1-fkmrnull) from Amazon.
@@ -200,9 +199,13 @@ Wire connection from PWM/Servo Controller to Raspberry Pi:
 
 ![PWM to RPi](./docs/images/pwm_to_raspberry_pi_378x283.jpg)
 
-TODO: add picture of sabertooth DIP switch settings
+Sabertooth DIP switch settings (1, 2, 3 - DOWN and 4, 5, 6 - UP):
 
-TODO: add picture of sabertooth connection to raspberry pi
+![DIP Switch Settings](./docs/images/dip_switch_settings_378x283.jpg)
+
+Full Top-View of Porky with the top plate off (shows: Sabertooth motor controller connection to Raspberry Pi):
+
+![Porky Full Top-View](./docs/images/porky_top-view_full_378x283.jpg)
 
 **Note: wire diagrams will be added in the future.**
 
@@ -216,7 +219,7 @@ This setup consists of:
 * **4 x AA Batteries**
 * **USB C to MicroUSB Cable** [Amazon Link](https://www.amazon.com/gp/product/B0744BKDRD/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1) To connect the Raspberry Pi to the Powerbank. 
 
-Pretty much the [tweak and test setup](#construction-tweak-and-test-setup), but without the wall supplies/adapters and additional portable power supplies:
+Pretty much the [tweak and test setup](#construction-tweak-and-test-setup), but without the wall supplies/adapters and additional portable power delivery devices:
 
 ![Porky without Wires](./docs/images/porky_no_walls_attached_378x283.jpg)
 
@@ -241,12 +244,12 @@ This step isn't absolutely necessary to follow verbatim, you can also use images
 
 1. Navigate to the utils directory:
 ```console
-pi@raspberrypi:~$ cd ./Porky/utils
+pi@raspberrypi:~$ cd ./Porky/src/utils
 ```
 
 2. Run the image capturing Python script:
 ```console
-pi@raspberrypi:~$ python3 image_capture.py -picture_directory=~/PathYourImageDirectory -picture_label=PathYourPictureLabel
+pi@raspberrypi:~/Porky/src/utils $ python3 image_capture.py -picture_directory=~/PathYourImageDirectory -picture_label=PathYourPictureLabel
 ```
 
 3. Capture images by pointing the camera at a subject and pressing the mini-button (which is connected to the breadboard) to take the picture. The pictures will be saved within the directory that was specified and will automatically increment the image label based on the number of images already contained within the folder.
@@ -261,7 +264,7 @@ This process consists of labelling/annotating your images in a format readable b
 3. Click 'Open Dir' and choose the directory that contains your 'train' images.
 4. Click on an image to annotate.
 5. Click 'Create RectBox'
-6. Click and drag a rectangluar box over the portion of the image you want to classify and release the mouse button when you've outlined the region of interest.
+6. Click and drag a rectangular box over the portion of the image you want to classify and release the mouse button when you've outlined the region of interest.
 7. A pop-up window will display that will prompt you to input a label for the region of interest that you outlined. Input the label and press the 'Ok' button or hit the 'Enter' key on your keyboard.
 8. Repeat steps 4 through 7 until you've labelled all of the images within the directory.
 9. Repeat steps 2 through 8 for the 'test' portion of your dataset.
@@ -438,7 +441,7 @@ Configure your robot (see: [Live Deployment Setup](#rocket-live-deployment-setup
 - [x] All bolted connections are properly tightened.
 - [x] The Raspberry Pi is powered on via the portable powerbank.
 - [x] The PWM/Servo Controller is powered on via the 4xAA Battery Holder.
-- [x] The Motorcontroller is switch is turned on and powered via the Li-Po battery.
+- [x] The Motor-controller is switch is turned on and powered via the Li-Po battery.
 
 If you've built an alike robot, issue the following command via a terminal:
 ```console
@@ -457,7 +460,7 @@ pi@raspberrypi:~/Porky/src $ python3 run.py --pantiltstate 0 --motorstate 0
   * The most complex process was the machine learning portion by far.
   * Frustration was mostly observed while attempting to configure and train a model on TensorFlow and the Google Cloud Platform. This is most likely due to the guides I followed being outdated and using Linux as their platform.
 * Performance
-  * The object detection for the first iteration of the piggy model is not as accurate and performant as I would prefer. This is most likely due to the lack of diversity within the dataset. I'll need to be more observant about gathering/capturing more lighting situations and overall environments in the future.
+  * The object detection for the first iteration of the piggy model is not as accurate and fast as I would prefer. This is most likely due to the lack of diversity within the dataset. I'll need to be more observant about gathering/capturing more lighting situations and overall environments in the future.
   * The piggy detection model works best where more natural light is present.
   * The object detection in the current iteration is very rebound-y and which causes the motors (and therefore the whole bot) to become very jittery.
 
@@ -465,6 +468,8 @@ pi@raspberrypi:~/Porky/src $ python3 run.py --pantiltstate 0 --motorstate 0
 I tried my best to detail all of the processes I used to get this project off the ground, but I may have missed some key steps along the way or you may have experienced some frustrations trying to follow along. With that being said, please don't hesitate to drop me any comments, questions or concerns. I promise to do my best to address your issues.
 
 ## References and Acknowledgements
+**Professor Becker and CS390** For guiding and permitting this project class project.
+
 **[leswright1977/Rpi3_NCS2](https://github.com/leswright1977/RPi3_NCS2):** leswright1977's bottle-chasing robot introduced me to the Intel NCS2 and its ability to integrate machine learning models for real-time applications.
 
 **[PINTO0309](https://github.com/PINTO0309):** PINTO0309's [MobileNet-SSD-RealSense](https://github.com/PINTO0309/MobileNet-SSD-RealSense) project introduced me to using multiprocessing with OpenCV and Intel's CNN backend in order to achieve faster results.
